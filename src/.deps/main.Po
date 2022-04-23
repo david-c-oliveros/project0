@@ -131,7 +131,212 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11.2.0/bits/istream.tcc /usr/include/GL/glew.h \
  /usr/include/c++/11.2.0/cstddef /usr/include/GL/glu.h \
  /usr/include/GL/gl.h /usr/local/include/GLFW/glfw3.h include/stb_image.h \
- /usr/include/c++/11.2.0/stdlib.h
+ /usr/include/c++/11.2.0/stdlib.h src/Shader.h include/glm/glm/glm.hpp \
+ include/glm/glm/detail/_fixes.hpp /usr/include/c++/11.2.0/cmath \
+ /usr/include/math.h /usr/include/bits/math-vector.h \
+ /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
+ /usr/include/bits/iscanonical.h /usr/include/c++/11.2.0/bits/specfun.h \
+ /usr/include/c++/11.2.0/limits /usr/include/c++/11.2.0/tr1/gamma.tcc \
+ /usr/include/c++/11.2.0/tr1/special_function_util.h \
+ /usr/include/c++/11.2.0/tr1/bessel_function.tcc \
+ /usr/include/c++/11.2.0/tr1/beta_function.tcc \
+ /usr/include/c++/11.2.0/tr1/ell_integral.tcc \
+ /usr/include/c++/11.2.0/tr1/exp_integral.tcc \
+ /usr/include/c++/11.2.0/tr1/hypergeometric.tcc \
+ /usr/include/c++/11.2.0/tr1/legendre_function.tcc \
+ /usr/include/c++/11.2.0/tr1/modified_bessel_func.tcc \
+ /usr/include/c++/11.2.0/tr1/poly_hermite.tcc \
+ /usr/include/c++/11.2.0/tr1/poly_laguerre.tcc \
+ /usr/include/c++/11.2.0/tr1/riemann_zeta.tcc \
+ /usr/include/c++/11.2.0/climits \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+ /usr/include/bits/uio_lim.h /usr/include/c++/11.2.0/cfloat \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/float.h \
+ /usr/include/c++/11.2.0/cassert /usr/include/assert.h \
+ include/glm/glm/fwd.hpp include/glm/glm/detail/type_int.hpp \
+ include/glm/glm/detail/setup.hpp \
+ include/glm/glm/detail/../simd/platform.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/emmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xmmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/mmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/mm_malloc.h \
+ include/glm/glm/detail/type_float.hpp \
+ include/glm/glm/detail/type_vec.hpp include/glm/glm/detail/precision.hpp \
+ include/glm/glm/detail/type_mat.hpp include/glm/glm/vec2.hpp \
+ include/glm/glm/detail/type_vec2.hpp \
+ include/glm/glm/detail/type_vec2.inl include/glm/glm/vec3.hpp \
+ include/glm/glm/detail/type_vec3.hpp \
+ include/glm/glm/detail/type_vec3.inl include/glm/glm/vec4.hpp \
+ include/glm/glm/detail/type_vec4.hpp \
+ include/glm/glm/detail/type_vec4.inl \
+ include/glm/glm/detail/type_vec4_simd.inl include/glm/glm/mat2x2.hpp \
+ include/glm/glm/detail/type_mat2x2.hpp \
+ include/glm/glm/detail/type_mat2x2.inl \
+ include/glm/glm/detail/func_matrix.hpp \
+ include/glm/glm/detail/../mat2x3.hpp \
+ include/glm/glm/detail/../detail/type_mat2x3.hpp \
+ include/glm/glm/detail/../detail/type_mat2x3.inl \
+ include/glm/glm/detail/../mat2x4.hpp \
+ include/glm/glm/detail/../detail/type_mat2x4.hpp \
+ include/glm/glm/detail/../detail/type_mat2x4.inl \
+ include/glm/glm/detail/../mat3x2.hpp \
+ include/glm/glm/detail/../detail/type_mat3x2.hpp \
+ include/glm/glm/detail/../detail/type_mat3x2.inl \
+ include/glm/glm/detail/../mat3x3.hpp \
+ include/glm/glm/detail/../detail/type_mat3x3.hpp \
+ include/glm/glm/detail/../detail/type_mat3x3.inl \
+ include/glm/glm/detail/../mat3x4.hpp \
+ include/glm/glm/detail/../detail/type_mat3x4.hpp \
+ include/glm/glm/detail/../detail/type_mat3x4.inl \
+ include/glm/glm/detail/../mat4x2.hpp \
+ include/glm/glm/detail/../detail/type_mat4x2.hpp \
+ include/glm/glm/detail/../detail/type_mat4x2.inl \
+ include/glm/glm/detail/../mat4x3.hpp \
+ include/glm/glm/detail/../detail/type_mat4x3.hpp \
+ include/glm/glm/detail/../detail/type_mat4x3.inl \
+ include/glm/glm/detail/../mat4x4.hpp \
+ include/glm/glm/detail/../detail/type_mat4x4.hpp \
+ include/glm/glm/detail/../detail/type_mat4x4.inl \
+ include/glm/glm/detail/../detail/type_mat4x4_simd.inl \
+ include/glm/glm/detail/func_matrix.inl \
+ include/glm/glm/detail/../geometric.hpp \
+ include/glm/glm/detail/../detail/func_geometric.hpp \
+ include/glm/glm/detail/../detail/func_geometric.inl \
+ include/glm/glm/detail/../detail/func_exponential.hpp \
+ include/glm/glm/detail/../detail/type_vec1.hpp \
+ include/glm/glm/detail/../detail/type_vec1.inl \
+ include/glm/glm/detail/../detail/func_exponential.inl \
+ include/glm/glm/detail/../detail/func_vector_relational.hpp \
+ include/glm/glm/detail/../detail/func_vector_relational.inl \
+ include/glm/glm/detail/../detail/func_vector_relational_simd.inl \
+ include/glm/glm/detail/../detail/_vectorize.hpp \
+ include/glm/glm/detail/../detail/func_exponential_simd.inl \
+ include/glm/glm/detail/../detail/../simd/exponential.h \
+ include/glm/glm/detail/../detail/func_common.hpp \
+ include/glm/glm/detail/../detail/_fixes.hpp \
+ include/glm/glm/detail/../detail/func_common.inl \
+ include/glm/glm/detail/../detail/func_common_simd.inl \
+ include/glm/glm/detail/../detail/../simd/common.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/immintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/x86gprintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/ia32intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/adxintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/bmiintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/bmi2intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/cetintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/cldemoteintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/clflushoptintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/clwbintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/clzerointrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/enqcmdintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/fxsrintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/lzcntintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/lwpintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/movdirintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/mwaitxintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/pconfigintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/popcntintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/pkuintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/rdseedintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/rtmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/serializeintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/sgxintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/tbmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/tsxldtrkintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/uintrintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/waitpkgintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/wbnoinvdintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsaveintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsavecintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsaveoptintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsavesintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xtestintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/hresetintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/pmmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/tmmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/smmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/wmmintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avxintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avxvnniintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx2intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512fintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512erintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512pfintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512cdintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bwintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512dqintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vlbwintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vldqintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512ifmaintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512ifmavlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmiintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmivlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx5124fmapsintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx5124vnniwintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vpopcntdqintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmi2intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmi2vlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vnniintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vnnivlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vpopcntdqvlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bitalgintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vp2intersectintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vp2intersectvlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/shaintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/fmaintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/f16cintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/gfniintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/vaesintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/vpclmulqdqintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bf16vlintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bf16intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/amxtileintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/amxint8intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/amxbf16intrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/prfchwintrin.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/keylockerintrin.h \
+ include/glm/glm/detail/../detail/func_geometric_simd.inl \
+ include/glm/glm/detail/../detail/../simd/geometric.h \
+ include/glm/glm/detail/func_matrix_simd.inl \
+ include/glm/glm/detail/../simd/matrix.h \
+ include/glm/glm/trigonometric.hpp \
+ include/glm/glm/detail/func_trigonometric.hpp \
+ include/glm/glm/detail/func_trigonometric.inl \
+ include/glm/glm/detail/func_trigonometric_simd.inl \
+ include/glm/glm/exponential.hpp include/glm/glm/common.hpp \
+ include/glm/glm/packing.hpp include/glm/glm/detail/func_packing.hpp \
+ include/glm/glm/detail/func_packing.inl \
+ include/glm/glm/detail/type_half.hpp \
+ include/glm/glm/detail/type_half.inl \
+ include/glm/glm/detail/func_packing_simd.inl include/glm/glm/matrix.hpp \
+ include/glm/glm/vector_relational.hpp include/glm/glm/integer.hpp \
+ include/glm/glm/detail/func_integer.hpp \
+ include/glm/glm/detail/func_integer.inl \
+ include/glm/glm/detail/func_integer_simd.inl \
+ include/glm/glm/detail/../simd/integer.h \
+ include/glm/glm/gtc/type_ptr.hpp \
+ include/glm/glm/gtc/../gtc/quaternion.hpp \
+ include/glm/glm/gtc/../gtc/../gtc/constants.hpp \
+ include/glm/glm/gtc/../gtc/../gtc/constants.inl \
+ include/glm/glm/gtc/../gtc/quaternion.inl \
+ include/glm/glm/gtc/../gtc/quaternion_simd.inl \
+ /usr/include/c++/11.2.0/cstring /usr/include/string.h \
+ /usr/include/strings.h include/glm/glm/gtc/type_ptr.inl src/Camera.h \
+ include/glm/glm/gtc/matrix_transform.hpp \
+ include/glm/glm/gtc/matrix_transform.inl /usr/include/c++/11.2.0/vector \
+ /usr/include/c++/11.2.0/bits/stl_uninitialized.h \
+ /usr/include/c++/11.2.0/bits/stl_vector.h \
+ /usr/include/c++/11.2.0/bits/stl_bvector.h \
+ /usr/include/c++/11.2.0/bits/vector.tcc
 /usr/include/stdc-predef.h:
 /usr/include/c++/11.2.0/iostream:
 /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/c++config.h:
@@ -320,3 +525,235 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
 /usr/local/include/GLFW/glfw3.h:
 include/stb_image.h:
 /usr/include/c++/11.2.0/stdlib.h:
+src/Shader.h:
+include/glm/glm/glm.hpp:
+include/glm/glm/detail/_fixes.hpp:
+/usr/include/c++/11.2.0/cmath:
+/usr/include/math.h:
+/usr/include/bits/math-vector.h:
+/usr/include/bits/libm-simd-decl-stubs.h:
+/usr/include/bits/flt-eval-method.h:
+/usr/include/bits/fp-logb.h:
+/usr/include/bits/fp-fast.h:
+/usr/include/bits/mathcalls-helper-functions.h:
+/usr/include/bits/mathcalls.h:
+/usr/include/bits/mathcalls-narrow.h:
+/usr/include/bits/iscanonical.h:
+/usr/include/c++/11.2.0/bits/specfun.h:
+/usr/include/c++/11.2.0/limits:
+/usr/include/c++/11.2.0/tr1/gamma.tcc:
+/usr/include/c++/11.2.0/tr1/special_function_util.h:
+/usr/include/c++/11.2.0/tr1/bessel_function.tcc:
+/usr/include/c++/11.2.0/tr1/beta_function.tcc:
+/usr/include/c++/11.2.0/tr1/ell_integral.tcc:
+/usr/include/c++/11.2.0/tr1/exp_integral.tcc:
+/usr/include/c++/11.2.0/tr1/hypergeometric.tcc:
+/usr/include/c++/11.2.0/tr1/legendre_function.tcc:
+/usr/include/c++/11.2.0/tr1/modified_bessel_func.tcc:
+/usr/include/c++/11.2.0/tr1/poly_hermite.tcc:
+/usr/include/c++/11.2.0/tr1/poly_laguerre.tcc:
+/usr/include/c++/11.2.0/tr1/riemann_zeta.tcc:
+/usr/include/c++/11.2.0/climits:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/limits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/syslimits.h:
+/usr/include/limits.h:
+/usr/include/bits/posix1_lim.h:
+/usr/include/bits/local_lim.h:
+/usr/include/linux/limits.h:
+/usr/include/bits/posix2_lim.h:
+/usr/include/bits/xopen_lim.h:
+/usr/include/bits/uio_lim.h:
+/usr/include/c++/11.2.0/cfloat:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/float.h:
+/usr/include/c++/11.2.0/cassert:
+/usr/include/assert.h:
+include/glm/glm/fwd.hpp:
+include/glm/glm/detail/type_int.hpp:
+include/glm/glm/detail/setup.hpp:
+include/glm/glm/detail/../simd/platform.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/emmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xmmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/mmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/mm_malloc.h:
+include/glm/glm/detail/type_float.hpp:
+include/glm/glm/detail/type_vec.hpp:
+include/glm/glm/detail/precision.hpp:
+include/glm/glm/detail/type_mat.hpp:
+include/glm/glm/vec2.hpp:
+include/glm/glm/detail/type_vec2.hpp:
+include/glm/glm/detail/type_vec2.inl:
+include/glm/glm/vec3.hpp:
+include/glm/glm/detail/type_vec3.hpp:
+include/glm/glm/detail/type_vec3.inl:
+include/glm/glm/vec4.hpp:
+include/glm/glm/detail/type_vec4.hpp:
+include/glm/glm/detail/type_vec4.inl:
+include/glm/glm/detail/type_vec4_simd.inl:
+include/glm/glm/mat2x2.hpp:
+include/glm/glm/detail/type_mat2x2.hpp:
+include/glm/glm/detail/type_mat2x2.inl:
+include/glm/glm/detail/func_matrix.hpp:
+include/glm/glm/detail/../mat2x3.hpp:
+include/glm/glm/detail/../detail/type_mat2x3.hpp:
+include/glm/glm/detail/../detail/type_mat2x3.inl:
+include/glm/glm/detail/../mat2x4.hpp:
+include/glm/glm/detail/../detail/type_mat2x4.hpp:
+include/glm/glm/detail/../detail/type_mat2x4.inl:
+include/glm/glm/detail/../mat3x2.hpp:
+include/glm/glm/detail/../detail/type_mat3x2.hpp:
+include/glm/glm/detail/../detail/type_mat3x2.inl:
+include/glm/glm/detail/../mat3x3.hpp:
+include/glm/glm/detail/../detail/type_mat3x3.hpp:
+include/glm/glm/detail/../detail/type_mat3x3.inl:
+include/glm/glm/detail/../mat3x4.hpp:
+include/glm/glm/detail/../detail/type_mat3x4.hpp:
+include/glm/glm/detail/../detail/type_mat3x4.inl:
+include/glm/glm/detail/../mat4x2.hpp:
+include/glm/glm/detail/../detail/type_mat4x2.hpp:
+include/glm/glm/detail/../detail/type_mat4x2.inl:
+include/glm/glm/detail/../mat4x3.hpp:
+include/glm/glm/detail/../detail/type_mat4x3.hpp:
+include/glm/glm/detail/../detail/type_mat4x3.inl:
+include/glm/glm/detail/../mat4x4.hpp:
+include/glm/glm/detail/../detail/type_mat4x4.hpp:
+include/glm/glm/detail/../detail/type_mat4x4.inl:
+include/glm/glm/detail/../detail/type_mat4x4_simd.inl:
+include/glm/glm/detail/func_matrix.inl:
+include/glm/glm/detail/../geometric.hpp:
+include/glm/glm/detail/../detail/func_geometric.hpp:
+include/glm/glm/detail/../detail/func_geometric.inl:
+include/glm/glm/detail/../detail/func_exponential.hpp:
+include/glm/glm/detail/../detail/type_vec1.hpp:
+include/glm/glm/detail/../detail/type_vec1.inl:
+include/glm/glm/detail/../detail/func_exponential.inl:
+include/glm/glm/detail/../detail/func_vector_relational.hpp:
+include/glm/glm/detail/../detail/func_vector_relational.inl:
+include/glm/glm/detail/../detail/func_vector_relational_simd.inl:
+include/glm/glm/detail/../detail/_vectorize.hpp:
+include/glm/glm/detail/../detail/func_exponential_simd.inl:
+include/glm/glm/detail/../detail/../simd/exponential.h:
+include/glm/glm/detail/../detail/func_common.hpp:
+include/glm/glm/detail/../detail/_fixes.hpp:
+include/glm/glm/detail/../detail/func_common.inl:
+include/glm/glm/detail/../detail/func_common_simd.inl:
+include/glm/glm/detail/../detail/../simd/common.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/immintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/x86gprintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/ia32intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/adxintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/bmiintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/bmi2intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/cetintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/cldemoteintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/clflushoptintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/clwbintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/clzerointrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/enqcmdintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/fxsrintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/lzcntintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/lwpintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/movdirintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/mwaitxintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/pconfigintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/popcntintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/pkuintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/rdseedintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/rtmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/serializeintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/sgxintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/tbmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/tsxldtrkintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/uintrintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/waitpkgintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/wbnoinvdintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsaveintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsavecintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsaveoptintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xsavesintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/xtestintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/hresetintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/pmmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/tmmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/smmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/wmmintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avxintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avxvnniintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx2intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512fintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512erintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512pfintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512cdintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bwintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512dqintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vlbwintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vldqintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512ifmaintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512ifmavlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmiintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmivlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx5124fmapsintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx5124vnniwintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vpopcntdqintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmi2intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vbmi2vlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vnniintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vnnivlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vpopcntdqvlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bitalgintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vp2intersectintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512vp2intersectvlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/shaintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/fmaintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/f16cintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/gfniintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/vaesintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/vpclmulqdqintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bf16vlintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/avx512bf16intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/amxtileintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/amxint8intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/amxbf16intrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/prfchwintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/keylockerintrin.h:
+include/glm/glm/detail/../detail/func_geometric_simd.inl:
+include/glm/glm/detail/../detail/../simd/geometric.h:
+include/glm/glm/detail/func_matrix_simd.inl:
+include/glm/glm/detail/../simd/matrix.h:
+include/glm/glm/trigonometric.hpp:
+include/glm/glm/detail/func_trigonometric.hpp:
+include/glm/glm/detail/func_trigonometric.inl:
+include/glm/glm/detail/func_trigonometric_simd.inl:
+include/glm/glm/exponential.hpp:
+include/glm/glm/common.hpp:
+include/glm/glm/packing.hpp:
+include/glm/glm/detail/func_packing.hpp:
+include/glm/glm/detail/func_packing.inl:
+include/glm/glm/detail/type_half.hpp:
+include/glm/glm/detail/type_half.inl:
+include/glm/glm/detail/func_packing_simd.inl:
+include/glm/glm/matrix.hpp:
+include/glm/glm/vector_relational.hpp:
+include/glm/glm/integer.hpp:
+include/glm/glm/detail/func_integer.hpp:
+include/glm/glm/detail/func_integer.inl:
+include/glm/glm/detail/func_integer_simd.inl:
+include/glm/glm/detail/../simd/integer.h:
+include/glm/glm/gtc/type_ptr.hpp:
+include/glm/glm/gtc/../gtc/quaternion.hpp:
+include/glm/glm/gtc/../gtc/../gtc/constants.hpp:
+include/glm/glm/gtc/../gtc/../gtc/constants.inl:
+include/glm/glm/gtc/../gtc/quaternion.inl:
+include/glm/glm/gtc/../gtc/quaternion_simd.inl:
+/usr/include/c++/11.2.0/cstring:
+/usr/include/string.h:
+/usr/include/strings.h:
+include/glm/glm/gtc/type_ptr.inl:
+src/Camera.h:
+include/glm/glm/gtc/matrix_transform.hpp:
+include/glm/glm/gtc/matrix_transform.inl:
+/usr/include/c++/11.2.0/vector:
+/usr/include/c++/11.2.0/bits/stl_uninitialized.h:
+/usr/include/c++/11.2.0/bits/stl_vector.h:
+/usr/include/c++/11.2.0/bits/stl_bvector.h:
+/usr/include/c++/11.2.0/bits/vector.tcc:
