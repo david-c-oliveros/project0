@@ -11,14 +11,14 @@
 
 #include "Shader.h"
 
-#define MAX_BONE_INFLUENCE
+#define MAX_BONE_INFLUENCE 4
 
 
 struct Vertex
 {
     glm::vec3 Position;
     glm::vec3 Normal;
-    glm::vec3 TexCoords;
+    glm::vec2 TexCoords;
 
     glm::vec3 Tangent;
     glm::vec3 Bitangent;
@@ -41,7 +41,7 @@ class Mesh
     public:
         std::vector<Vertex>       vertices;
         std::vector<unsigned int> indices;
-        std::vector<Texture       textures;
+        std::vector<Texture>      textures;
 
         unsigned int VAO;
 
