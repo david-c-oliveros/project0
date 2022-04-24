@@ -2,7 +2,7 @@
 
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-    : Front(glm::vec3(0.0f, -1.0f)), MovmentSpeed(WALK_SPEED), SprintSpeed(SPRINT_SPEED),
+    : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(WALK_SPEED), SprintSpeed(SPRINT_SPEED),
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(false)
 {
     Position = position;
@@ -14,7 +14,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 
 
 Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
-    : Front(glm::vec3(0.0f, -1.0f)), MovmentSpeed(WALK_SPEED), SprintSpeed(SPRINT_SPEED),
+    : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(WALK_SPEED), SprintSpeed(SPRINT_SPEED),
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(false)
 {
     Position = glm::vec3(posX, posY, posZ);
@@ -85,6 +85,7 @@ void Camera::updateCameraVectors()
     front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
     front.y = sin(glm::radians(Pitch));
     front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    Front = glm::normalize(front);
 
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up    = glm::normalize(glm::cross(Right, Front));

@@ -104,7 +104,9 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_app_OBJECTS = $(top_builddir)/src/main.$(OBJEXT) \
-	$(top_builddir)/src/stb_image.$(OBJEXT)
+	$(top_builddir)/src/stb_image.$(OBJEXT) \
+	$(top_builddir)/src/Camera.$(OBJEXT) \
+	$(top_builddir)/src/Shader.$(OBJEXT)
 app_OBJECTS = $(am_app_OBJECTS)
 app_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -122,7 +124,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/main.Po \
+am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
+	$(top_builddir)/src/$(DEPDIR)/Shader.Po \
+	$(top_builddir)/src/$(DEPDIR)/main.Po \
 	$(top_builddir)/src/$(DEPDIR)/stb_image.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -285,7 +289,9 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = subdir-objects
 app_SOURCES = $(top_srcdir)/src/main.cpp \
-			  $(top_srcdir)/src/stb_image.cpp
+			  $(top_srcdir)/src/stb_image.cpp \
+			  $(top_srcdir)/src/Camera.cpp \
+			  $(top_srcdir)/src/Shader.cpp
 
 AM_CXXFLAGS =  -DSUBDIRS -Iinclude -Iinclude/glm -Iassimp/include -Lassimp/bin
 AM_LDFLAGS = -lGLEW -lGL -lX11 -lGLU -lOpenGL -lglfw  -lm -ldl -lassimp
@@ -396,6 +402,12 @@ $(top_builddir)/src/main.$(OBJEXT):  \
 $(top_builddir)/src/stb_image.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/Camera.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/Shader.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 
 app$(EXEEXT): $(app_OBJECTS) $(app_DEPENDENCIES) $(EXTRA_app_DEPENDENCIES) 
 	@rm -f app$(EXEEXT)
@@ -408,6 +420,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include $(top_builddir)/src/$(DEPDIR)/Camera.Po # am--include-marker
+include $(top_builddir)/src/$(DEPDIR)/Shader.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/main.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/stb_image.Po # am--include-marker
 
@@ -708,7 +722,9 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
+		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -757,7 +773,9 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
+		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
@@ -797,8 +815,6 @@ uninstall-am: uninstall-binPROGRAMS
 
 .PRECIOUS: Makefile
 
-			  $(top_srcdir)/src/Camera.cpp
-			  $(top_srcdir)/src/Shader.cpp
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
