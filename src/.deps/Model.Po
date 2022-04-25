@@ -149,16 +149,16 @@ src/Model.o: src/Model.cpp /usr/include/stdc-predef.h src/Model.h \
  /usr/include/c++/11.2.0/bits/stl_uninitialized.h \
  /usr/include/c++/11.2.0/bits/stl_vector.h \
  /usr/include/c++/11.2.0/bits/stl_bvector.h \
- /usr/include/c++/11.2.0/bits/vector.tcc \
- assimp/include/assimp/Importer.hpp assimp/include/assimp/types.h \
+ /usr/include/c++/11.2.0/bits/vector.tcc /usr/include/assimp/Importer.hpp \
+ /usr/include/assimp/types.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/limits.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
  /usr/include/bits/uio_lim.h /usr/include/string.h /usr/include/strings.h \
- assimp/include/assimp/defs.h assimp/include/assimp/config.h \
- assimp/include/assimp/vector2.h /usr/include/c++/11.2.0/cmath \
+ /usr/include/assimp/defs.h /usr/include/assimp/config.h \
+ /usr/include/assimp/vector2.h /usr/include/c++/11.2.0/cmath \
  /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \
  /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
@@ -178,11 +178,11 @@ src/Model.o: src/Model.cpp /usr/include/stdc-predef.h src/Model.h \
  /usr/include/c++/11.2.0/tr1/poly_hermite.tcc \
  /usr/include/c++/11.2.0/tr1/poly_laguerre.tcc \
  /usr/include/c++/11.2.0/tr1/riemann_zeta.tcc \
- assimp/include/assimp/vector3.h assimp/include/assimp/color4.h \
- assimp/include/assimp/matrix3x3.h assimp/include/assimp/matrix4x4.h \
- assimp/include/assimp/quaternion.h /usr/include/c++/11.2.0/cstring \
- assimp/include/assimp/vector2.inl assimp/include/assimp/vector3.inl \
- assimp/include/assimp/color4.inl assimp/include/assimp/matrix3x3.inl \
+ /usr/include/assimp/vector3.h /usr/include/assimp/color4.h \
+ /usr/include/assimp/matrix3x3.h /usr/include/assimp/matrix4x4.h \
+ /usr/include/assimp/quaternion.h /usr/include/c++/11.2.0/cstring \
+ /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
+ /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
  /usr/include/c++/11.2.0/algorithm \
  /usr/include/c++/11.2.0/bits/stl_algo.h \
  /usr/include/c++/11.2.0/bits/algorithmfwd.h \
@@ -198,14 +198,12 @@ src/Model.o: src/Model.cpp /usr/include/stdc-predef.h src/Model.h \
  /usr/include/c++/11.2.0/bits/hashtable_policy.h \
  /usr/include/c++/11.2.0/bits/unordered_map.h \
  /usr/include/c++/11.2.0/pstl/execution_defs.h \
- assimp/include/assimp/matrix4x4.inl \
- assimp/include/assimp/MathFunctions.h \
- assimp/include/assimp/quaternion.inl \
- assimp/include/assimp/BaseImporter.h assimp/include/assimp/Exceptional.h \
- assimp/include/assimp/DefaultIOStream.h \
- assimp/include/assimp/IOStream.hpp assimp/include/assimp/importerdesc.h \
- assimp/include/assimp/TinyFormatter.h \
- assimp/include/assimp/ProgressHandler.hpp /usr/include/c++/11.2.0/set \
+ /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
+ /usr/include/assimp/quaternion.inl /usr/include/assimp/BaseImporter.h \
+ /usr/include/assimp/Exceptional.h /usr/include/assimp/DefaultIOStream.h \
+ /usr/include/assimp/IOStream.hpp /usr/include/assimp/importerdesc.h \
+ /usr/include/assimp/TinyFormatter.h \
+ /usr/include/assimp/ProgressHandler.hpp /usr/include/c++/11.2.0/set \
  /usr/include/c++/11.2.0/bits/stl_set.h \
  /usr/include/c++/11.2.0/bits/stl_multiset.h \
  /usr/include/c++/11.2.0/memory \
@@ -221,13 +219,13 @@ src/Model.o: src/Model.cpp /usr/include/stdc-predef.h src/Model.h \
  /usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11.2.0/backward/auto_ptr.h \
  /usr/include/c++/11.2.0/pstl/glue_memory_defs.h \
- assimp/include/assimp/scene.h assimp/include/assimp/texture.h \
- assimp/include/assimp/./Compiler/pushpack1.h \
- assimp/include/assimp/./Compiler/poppack1.h assimp/include/assimp/mesh.h \
- assimp/include/assimp/aabb.h assimp/include/assimp/light.h \
- assimp/include/assimp/camera.h assimp/include/assimp/material.h \
- assimp/include/assimp/material.inl assimp/include/assimp/anim.h \
- assimp/include/assimp/metadata.h assimp/include/assimp/postprocess.h \
+ /usr/include/assimp/scene.h /usr/include/assimp/texture.h \
+ /usr/include/assimp/Compiler/pushpack1.h \
+ /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/mesh.h \
+ /usr/include/assimp/aabb.h /usr/include/assimp/light.h \
+ /usr/include/assimp/camera.h /usr/include/assimp/material.h \
+ /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
+ /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
  include/stb_image.h /usr/include/c++/11.2.0/stdlib.h src/Mesh.h \
  /usr/include/GL/glew.h /usr/include/c++/11.2.0/cstddef \
  /usr/include/GL/glu.h /usr/include/GL/gl.h include/glm/glm/glm.hpp \
@@ -613,8 +611,8 @@ src/Model.h:
 /usr/include/c++/11.2.0/bits/stl_vector.h:
 /usr/include/c++/11.2.0/bits/stl_bvector.h:
 /usr/include/c++/11.2.0/bits/vector.tcc:
-assimp/include/assimp/Importer.hpp:
-assimp/include/assimp/types.h:
+/usr/include/assimp/Importer.hpp:
+/usr/include/assimp/types.h:
 /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/limits.h:
 /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/syslimits.h:
 /usr/include/limits.h:
@@ -626,9 +624,9 @@ assimp/include/assimp/types.h:
 /usr/include/bits/uio_lim.h:
 /usr/include/string.h:
 /usr/include/strings.h:
-assimp/include/assimp/defs.h:
-assimp/include/assimp/config.h:
-assimp/include/assimp/vector2.h:
+/usr/include/assimp/defs.h:
+/usr/include/assimp/config.h:
+/usr/include/assimp/vector2.h:
 /usr/include/c++/11.2.0/cmath:
 /usr/include/math.h:
 /usr/include/bits/math-vector.h:
@@ -654,16 +652,16 @@ assimp/include/assimp/vector2.h:
 /usr/include/c++/11.2.0/tr1/poly_hermite.tcc:
 /usr/include/c++/11.2.0/tr1/poly_laguerre.tcc:
 /usr/include/c++/11.2.0/tr1/riemann_zeta.tcc:
-assimp/include/assimp/vector3.h:
-assimp/include/assimp/color4.h:
-assimp/include/assimp/matrix3x3.h:
-assimp/include/assimp/matrix4x4.h:
-assimp/include/assimp/quaternion.h:
+/usr/include/assimp/vector3.h:
+/usr/include/assimp/color4.h:
+/usr/include/assimp/matrix3x3.h:
+/usr/include/assimp/matrix4x4.h:
+/usr/include/assimp/quaternion.h:
 /usr/include/c++/11.2.0/cstring:
-assimp/include/assimp/vector2.inl:
-assimp/include/assimp/vector3.inl:
-assimp/include/assimp/color4.inl:
-assimp/include/assimp/matrix3x3.inl:
+/usr/include/assimp/vector2.inl:
+/usr/include/assimp/vector3.inl:
+/usr/include/assimp/color4.inl:
+/usr/include/assimp/matrix3x3.inl:
 /usr/include/c++/11.2.0/algorithm:
 /usr/include/c++/11.2.0/bits/stl_algo.h:
 /usr/include/c++/11.2.0/bits/algorithmfwd.h:
@@ -679,16 +677,16 @@ assimp/include/assimp/matrix3x3.inl:
 /usr/include/c++/11.2.0/bits/hashtable_policy.h:
 /usr/include/c++/11.2.0/bits/unordered_map.h:
 /usr/include/c++/11.2.0/pstl/execution_defs.h:
-assimp/include/assimp/matrix4x4.inl:
-assimp/include/assimp/MathFunctions.h:
-assimp/include/assimp/quaternion.inl:
-assimp/include/assimp/BaseImporter.h:
-assimp/include/assimp/Exceptional.h:
-assimp/include/assimp/DefaultIOStream.h:
-assimp/include/assimp/IOStream.hpp:
-assimp/include/assimp/importerdesc.h:
-assimp/include/assimp/TinyFormatter.h:
-assimp/include/assimp/ProgressHandler.hpp:
+/usr/include/assimp/matrix4x4.inl:
+/usr/include/assimp/MathFunctions.h:
+/usr/include/assimp/quaternion.inl:
+/usr/include/assimp/BaseImporter.h:
+/usr/include/assimp/Exceptional.h:
+/usr/include/assimp/DefaultIOStream.h:
+/usr/include/assimp/IOStream.hpp:
+/usr/include/assimp/importerdesc.h:
+/usr/include/assimp/TinyFormatter.h:
+/usr/include/assimp/ProgressHandler.hpp:
 /usr/include/c++/11.2.0/set:
 /usr/include/c++/11.2.0/bits/stl_set.h:
 /usr/include/c++/11.2.0/bits/stl_multiset.h:
@@ -706,19 +704,19 @@ assimp/include/assimp/ProgressHandler.hpp:
 /usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h:
 /usr/include/c++/11.2.0/backward/auto_ptr.h:
 /usr/include/c++/11.2.0/pstl/glue_memory_defs.h:
-assimp/include/assimp/scene.h:
-assimp/include/assimp/texture.h:
-assimp/include/assimp/./Compiler/pushpack1.h:
-assimp/include/assimp/./Compiler/poppack1.h:
-assimp/include/assimp/mesh.h:
-assimp/include/assimp/aabb.h:
-assimp/include/assimp/light.h:
-assimp/include/assimp/camera.h:
-assimp/include/assimp/material.h:
-assimp/include/assimp/material.inl:
-assimp/include/assimp/anim.h:
-assimp/include/assimp/metadata.h:
-assimp/include/assimp/postprocess.h:
+/usr/include/assimp/scene.h:
+/usr/include/assimp/texture.h:
+/usr/include/assimp/Compiler/pushpack1.h:
+/usr/include/assimp/Compiler/poppack1.h:
+/usr/include/assimp/mesh.h:
+/usr/include/assimp/aabb.h:
+/usr/include/assimp/light.h:
+/usr/include/assimp/camera.h:
+/usr/include/assimp/material.h:
+/usr/include/assimp/material.inl:
+/usr/include/assimp/anim.h:
+/usr/include/assimp/metadata.h:
+/usr/include/assimp/postprocess.h:
 include/stb_image.h:
 /usr/include/c++/11.2.0/stdlib.h:
 src/Mesh.h:

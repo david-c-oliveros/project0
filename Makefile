@@ -298,7 +298,7 @@ app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/Mesh.cpp \
 			  $(top_srcdir)/src/Model.cpp
 
-AM_CXXFLAGS =  -Iassimp/include -L./assimp/bin -Iinclude -Iinclude/glm
+AM_CXXFLAGS =  -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
 AM_LDFLAGS = -lGLEW -lGL -lX11 -lGLU -lOpenGL -lglfw  -lm -ldl -lassimp
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
