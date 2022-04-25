@@ -105,6 +105,13 @@ void Shader::Use()
 }
 
 
+void Shader::PrintName()
+{
+    std::cout << vertexName << std::endl;
+    std::cout << fragmentName << std::endl;
+}
+
+
 void Shader::SetBool(const std::string &name, bool value) const
 {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value);

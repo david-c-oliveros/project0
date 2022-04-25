@@ -9,7 +9,6 @@
 class Object
 {
     private:
-        glm::mat4 m_mModelMat;
         glm::vec3 m_vPos;
         Model* m_pModelMesh;
 

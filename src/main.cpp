@@ -4,10 +4,16 @@
 
 #include <stb_image.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/random.hpp>
+
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
 #include "Object.h"
+#include "Light.h"
 
 
 void processInput(GLFWwindow* window);
@@ -18,7 +24,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 const unsigned int SCR_WIDTH  = 1600;
 const unsigned int SCR_HEIGHT = 1200;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 1.5f, 3.0f));
 
 float fDeltaTime = 0.0f;
 float fLastFrame = 0.0f;
@@ -27,11 +33,11 @@ float bFirstMouse = true;
 float lastX = 800;
 float lastY = 600;
 
+bool bShowLights = true;
+
 
 int main()
 {
-    std::cout << "Welcome to Project 0" << std::endl;
-
     /**********************************/
     /*        Configure Window        */
     /**********************************/
@@ -134,20 +140,20 @@ int main()
     /*                       VAO, VBO                        */  
     /*********************************************************/
     /*********************************************************/
-//    unsigned int VBO, VAO;
-//    glGenVertexArrays(1, &VAO);
-//    glGenBuffers(1, &VBO);
-//
-//    glBindVertexArray(VAO);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-//
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-//    glEnableVertexAttribArray(0);
-//
-//    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-//    glEnableVertexAttribArray(1);
+    unsigned int cubeVBO, cubeVAO;
+    glGenVertexArrays(1, &cubeVAO);
+    glGenBuffers(1, &cubeVBO);
+
+    glBindVertexArray(cubeVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
 
 
@@ -199,7 +205,7 @@ int main()
     /*                       Shaders                       */  
     /*******************************************************/
     /*******************************************************/
-    //Shader shader("shaders/vSimple.shader", "shaders/fSimple.shader");
+    Shader simpleShader("shaders/vSimple.shader", "shaders/fSimple.shader");
     Shader shader("shaders/vLight.shader", "shaders/fLight.shader");
     shader.Use();
     //shader.SetInt("texture_diffuse1", 0);
@@ -212,13 +218,20 @@ int main()
     /*                       Lighting                        */  
     /*********************************************************/
     /*********************************************************/
-    glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+    glm::vec3 lightPos(5.2f, 1.0f, 2.0f);
+    std::vector<Light> lights = {
+        Light(DIR_LIGHT, lightPos),
+        Light(POINT_LIGHT, glm::vec3( 0.7f,  0.2f,  2.0f)),
+        Light(POINT_LIGHT, glm::vec3( 2.3f, -3.3f, -4.0f)),
+        Light(POINT_LIGHT, glm::vec3(-4.0f,  2.0f, -12.0f)),
+        Light(POINT_LIGHT, glm::vec3( 0.0f,  0.0f, -3.0f))
+    };
 
     glm::vec3 pointLightPositions[] = {
-      glm::vec3( 0.7f,  0.2f,  2.0f),
-      glm::vec3( 2.3f, -3.3f, -4.0f),
-      glm::vec3(-4.0f,  2.0f, -12.0f),
-      glm::vec3( 0.0f,  0.0f, -3.0f)
+        glm::vec3( 0.7f,  0.2f,  2.0f),
+        glm::vec3( 2.3f, -3.3f, -4.0f),
+        glm::vec3(-4.0f,  2.0f, -12.0f),
+        glm::vec3( 0.0f,  0.0f, -3.0f)
     };
 
 
@@ -246,6 +259,7 @@ int main()
 
         shader.Use();
         shader.SetVec3("viewPos", camera.Position);
+
         shader.SetFloat("material.shininess", 32.0f);
 
         shader.SetVec3("dirLight.position", lightPos);
@@ -305,12 +319,30 @@ int main()
         shader.SetMat4("projection", projection);
         shader.SetMat4("view", view);
 
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         for (int i = 0; i < objects.size(); i++)
         {
             objects[i].Draw(shader);
         }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        glBindVertexArray(0);
+        if (bShowLights)
+        {
+            simpleShader.Use();
+            simpleShader.SetMat4("projection", projection);
+            simpleShader.SetMat4("view", view);
+            glBindVertexArray(cubeVAO);
+            for (int i = 0; i < lights.size(); i++)
+            {
+                glm::mat4 model = glm::mat4(1.0f);
+                model = glm::translate(model, lights[i].m_vPos);
+                model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+                simpleShader.SetMat4("model", model);
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+                //lights[i].Draw(simpleShader);
+            }
+            glBindVertexArray(0);
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();

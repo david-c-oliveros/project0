@@ -38,6 +38,7 @@ class Camera
 
         float Yaw;
         float Pitch;
+        float Floor;
         float MovementSpeed;
         float SprintSpeed;
         float MouseSensitivity;

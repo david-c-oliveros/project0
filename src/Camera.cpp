@@ -6,6 +6,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(false)
 {
     Position = position;
+    Floor = position.y;
     WorldUp = up;
     Yaw = yaw;
     Pitch = pitch;
@@ -18,6 +19,7 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(false)
 {
     Position = glm::vec3(posX, posY, posZ);
+    Floor = posY;
     WorldUp = glm::vec3(upX, upY, upZ);
     Yaw = yaw;
     Pitch = pitch;
@@ -44,7 +46,7 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
         Position += Right * velocity;
 
     if (bConstrainToFloor)
-        Position.y = 0.0f;
+        Position.y = Floor;
 }
 
 
@@ -75,7 +77,7 @@ void Camera::ProcessMouseScroll(float yoffset)
     if (Zoom < 1.0f)
         Zoom = 1.0f;
     if (Zoom > 45.0f)
-        Zoom = 1.0f;
+        Zoom = 45.0f;
 }
 
 

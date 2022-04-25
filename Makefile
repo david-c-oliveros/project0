@@ -109,7 +109,8 @@ am_app_OBJECTS = $(top_builddir)/src/main.$(OBJEXT) \
 	$(top_builddir)/src/Shader.$(OBJEXT) \
 	$(top_builddir)/src/Mesh.$(OBJEXT) \
 	$(top_builddir)/src/Model.$(OBJEXT) \
-	$(top_builddir)/src/Object.$(OBJEXT)
+	$(top_builddir)/src/Object.$(OBJEXT) \
+	$(top_builddir)/src/Light.$(OBJEXT)
 app_OBJECTS = $(am_app_OBJECTS)
 app_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -128,6 +129,7 @@ DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
+	$(top_builddir)/src/$(DEPDIR)/Light.Po \
 	$(top_builddir)/src/$(DEPDIR)/Mesh.Po \
 	$(top_builddir)/src/$(DEPDIR)/Model.Po \
 	$(top_builddir)/src/$(DEPDIR)/Object.Po \
@@ -299,7 +301,8 @@ app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/Shader.cpp \
 			  $(top_srcdir)/src/Mesh.cpp \
 			  $(top_srcdir)/src/Model.cpp \
-			  $(top_srcdir)/src/Object.cpp
+			  $(top_srcdir)/src/Object.cpp \
+			  $(top_srcdir)/src/Light.cpp
 
 AM_CXXFLAGS =  -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
 AM_LDFLAGS = -lGLEW -lGL -lX11 -lGLU -lOpenGL -lglfw  -lm -ldl -lassimp
@@ -425,6 +428,9 @@ $(top_builddir)/src/Model.$(OBJEXT):  \
 $(top_builddir)/src/Object.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/Light.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 
 app$(EXEEXT): $(app_OBJECTS) $(app_DEPENDENCIES) $(EXTRA_app_DEPENDENCIES) 
 	@rm -f app$(EXEEXT)
@@ -438,6 +444,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include $(top_builddir)/src/$(DEPDIR)/Camera.Po # am--include-marker
+include $(top_builddir)/src/$(DEPDIR)/Light.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/Mesh.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/Model.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/Object.Po # am--include-marker
@@ -743,6 +750,7 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Light.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Mesh.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Model.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Object.Po
@@ -797,6 +805,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Light.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Mesh.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Model.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Object.Po

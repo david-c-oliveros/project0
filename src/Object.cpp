@@ -15,7 +15,7 @@ Object::Object(Model &modelMesh, glm::vec3 pos)
 
 void Object::Draw(Shader &shader)
 {
-    glm::mat4 model = glm::mat4(1.0);
+    glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, m_vPos);
     shader.SetMat4("model", model);
     m_pModelMesh->Draw(shader);

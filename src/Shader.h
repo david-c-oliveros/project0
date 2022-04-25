@@ -21,6 +21,7 @@ class Shader
         ~Shader();
 
         void Use();
+        void PrintName();
 
         void SetBool(const std::string &name, bool value) const;
         void SetInt(const std::string &name, int value) const;
