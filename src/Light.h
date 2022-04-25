@@ -27,7 +27,7 @@ class Light
         glm::vec3 m_vVertexNormal;
 
     public:
-        glm::vec3 m_vPos;
+        glm::vec3 vPos;
         Light(LightType type);
         Light(LightType type, glm::vec3 position);
 
