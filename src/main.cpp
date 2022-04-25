@@ -7,6 +7,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
+#include "Object.h"
 
 
 void processInput(GLFWwindow* window);
@@ -119,7 +120,13 @@ int main()
 
     Model cube = Model("res/models/cube_scifi/obj/Cube.obj");
     Model backpack = Model("res/models/backpack/backpack.obj");
+    
 
+    std::vector<Object> objects;
+    for (int i = 0; i < 8; i++)
+    {
+        objects.push_back(Object(cube, glm::vec3(2.0 * i, 0.0f, 0.0f)));
+    }
 
 
     /*********************************************************/
@@ -298,12 +305,11 @@ int main()
         shader.SetMat4("projection", projection);
         shader.SetMat4("view", view);
 
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        shader.SetMat4("model", model);
+        for (int i = 0; i < objects.size(); i++)
+        {
+            objects[i].Draw(shader);
+        }
 
-        cube.Draw(shader);
-        
         glBindVertexArray(0);
 
         glfwSwapBuffers(window);
