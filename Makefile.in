@@ -105,12 +105,13 @@ PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_app_OBJECTS = $(top_builddir)/src/main.$(OBJEXT) \
 	$(top_builddir)/src/stb_image.$(OBJEXT) \
+	$(top_builddir)/src/Game.$(OBJEXT) \
 	$(top_builddir)/src/Camera.$(OBJEXT) \
 	$(top_builddir)/src/Shader.$(OBJEXT) \
 	$(top_builddir)/src/Mesh.$(OBJEXT) \
 	$(top_builddir)/src/Model.$(OBJEXT) \
 	$(top_builddir)/src/Object.$(OBJEXT) \
-	$(top_builddir)/src/Light.$(OBJEXT)
+	$(top_builddir)/src/PointLight.$(OBJEXT)
 app_OBJECTS = $(am_app_OBJECTS)
 app_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -129,10 +130,11 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
-	$(top_builddir)/src/$(DEPDIR)/Light.Po \
+	$(top_builddir)/src/$(DEPDIR)/Game.Po \
 	$(top_builddir)/src/$(DEPDIR)/Mesh.Po \
 	$(top_builddir)/src/$(DEPDIR)/Model.Po \
 	$(top_builddir)/src/$(DEPDIR)/Object.Po \
+	$(top_builddir)/src/$(DEPDIR)/PointLight.Po \
 	$(top_builddir)/src/$(DEPDIR)/Shader.Po \
 	$(top_builddir)/src/$(DEPDIR)/main.Po \
 	$(top_builddir)/src/$(DEPDIR)/stb_image.Po
@@ -297,12 +299,13 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/stb_image.cpp \
+			  $(top_srcdir)/src/Game.cpp \
 			  $(top_srcdir)/src/Camera.cpp \
 			  $(top_srcdir)/src/Shader.cpp \
 			  $(top_srcdir)/src/Mesh.cpp \
 			  $(top_srcdir)/src/Model.cpp \
 			  $(top_srcdir)/src/Object.cpp \
-			  $(top_srcdir)/src/Light.cpp
+			  $(top_srcdir)/src/PointLight.cpp
 
 AM_CXXFLAGS = @gllibs_CFLAGS@ -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
 AM_LDFLAGS = @gllibs_LIBS@ -lm -ldl -lassimp
@@ -413,6 +416,9 @@ $(top_builddir)/src/main.$(OBJEXT):  \
 $(top_builddir)/src/stb_image.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/Game.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 $(top_builddir)/src/Camera.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
@@ -428,7 +434,7 @@ $(top_builddir)/src/Model.$(OBJEXT):  \
 $(top_builddir)/src/Object.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
-$(top_builddir)/src/Light.$(OBJEXT):  \
+$(top_builddir)/src/PointLight.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 
@@ -444,10 +450,11 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Camera.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Light.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Game.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Mesh.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Model.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Object.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/PointLight.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Shader.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/stb_image.Po@am__quote@ # am--include-marker
@@ -750,10 +757,11 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
-	-rm -f $(top_builddir)/src/$(DEPDIR)/Light.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Game.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Mesh.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Model.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Object.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
@@ -805,10 +813,11 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
-	-rm -f $(top_builddir)/src/$(DEPDIR)/Light.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Game.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Mesh.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Model.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Object.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
