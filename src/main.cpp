@@ -13,7 +13,7 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Object.h"
-#include "Light.h"
+#include "PointLight.h"
 
 
 void processInput(GLFWwindow* window);
@@ -34,7 +34,7 @@ float bFirstMouse = true;
 float lastX = SCR_WIDTH / 2;
 float lastY = SCR_HEIGHT / 2;
 
-bool bShowLights = false;
+bool bShowLights = true;
 bool bFlashlight = false;
 bool bDebug = false;
 
@@ -135,6 +135,8 @@ int main()
     Model cModelHallway_L = Model("extra/models/hallway/Hallway_L.obj");
     Model cModelHallway_Ramp = Model("extra/models/hallway/Hallway_Ramp.obj");
     Model cModelHallway_Straight = Model("extra/models/hallway/Hallway_Straight.obj");
+
+    Model cEnv = Model("res/models/env_v01/game_env_v01.obj");
     
 
     /******************************************************************/
@@ -142,6 +144,8 @@ int main()
     /*                       Build Environment                        */  
     /******************************************************************/
     /******************************************************************/
+    Object cScene = Object(cEnv, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+
     std::vector<Object> cubes;
     for (int i = 0; i < 8; i++)
     {
@@ -209,29 +213,34 @@ int main()
     /*                       Lighting                        */  
     /*********************************************************/
     /*********************************************************/
-    Light dirLight = Light(DIR_LIGHT, glm::vec3(-0.2f, -1.0f, -0.3f));
-    shader.SetVec3("dirLight.direction", dirLight.vPos);
+    //Light dirLight = Light(DIR_LIGHT, glm::vec3(-0.2f, -1.0f, -0.3f));
+    glm::vec3 lightPos =  glm::vec3(-0.2f, -1.0f, -0.3f);
+    shader.SetVec3("dirLight.direction", lightPos);
     shader.SetVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
     shader.SetVec3("dirLight.diffuse", glm::vec3(0.1f, 0.1f, 0.1f));
     shader.SetVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
-    std::vector<Light> pointLights = {
-        Light(POINT_LIGHT, glm::vec3( 1.0f,  0.0f,  2.0f)),
-        Light(POINT_LIGHT, glm::vec3( 2.0f,  3.0f,  4.0f)),
-        Light(POINT_LIGHT, glm::vec3( 4.0f,  2.0f,  12.0f)),
-        Light(POINT_LIGHT, glm::vec3( 7.0f,  0.0f,  3.0f))
+    float fLightSepDist = 4.0f;
+    std::vector<PointLight> pointLights;
+    glm::vec3 colors[] = {
+        glm::vec3(1.0, 0.0f, 0.0f),
+        glm::vec3(0.0, 1.0f, 0.0f),
+        glm::vec3(0.0, 0.0f, 1.0f),
     };
+
+    pointLights.push_back(PointLight(0, glm::vec3(-0.22f,  3.5f, -36.5 + (0 * fLightSepDist))));
+    pointLights.push_back(PointLight(1, glm::vec3(-0.22f,  3.5f, -36.5 + (1 * fLightSepDist))));
+    pointLights.push_back(PointLight(2, glm::vec3(-0.22f,  3.5f, -34.8 + (2 * fLightSepDist))));
+    pointLights.push_back(PointLight(3, glm::vec3(-0.22f,  3.5f, -36.5 + (3 * fLightSepDist))));
+    pointLights.push_back(PointLight(4, glm::vec3(-0.22f,  3.5f, -36.5 + (4 * fLightSepDist))));
+    pointLights.push_back(PointLight(5, glm::vec3(-0.22f,  3.5f, -34.8 + (5 * fLightSepDist))));
+    pointLights.push_back(PointLight(6, glm::vec3(-0.22f,  3.5f, -34.8 + (6 * fLightSepDist))));
+    pointLights.push_back(PointLight(7, glm::vec3(-0.22f,  3.5f, -34.8 + (7 * fLightSepDist))));
 
     for (int i = 0; i < pointLights.size(); i++)
     {
-        std::string num = std::to_string(i);
-        shader.SetVec3("pointLights[" + num + "].position", pointLights[i].vPos);
-        shader.SetVec3("pointLights[" + num + "].ambient", glm::vec3(0.05, 0.05, 0.05));
-        shader.SetVec3("pointLights[" + num + "].diffuse", glm::vec3(0.8, 0.8, 0.8));
-        shader.SetVec3("pointLights[" + num + "].specular", glm::vec3(1.0, 1.0, 1.0));
-        shader.SetFloat("pointLights[" + num + "].constant", 1.0f);
-        shader.SetFloat("pointLights[" + num + "].linear", 1.09f);
-        shader.SetFloat("pointLights[" + num + "].quadratic", 0.032f);
+        pointLights[i].SetAllUniforms(shader);
+        pointLights[i].SetDiffuse(shader, glm::vec3(0.1f, 0.1f, 0.1f));
     }
     shader.SetVec3("spotLight.position", camera.Position);
     shader.SetVec3("spotLight.direction", camera.Front);
@@ -263,9 +272,6 @@ int main()
 
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        //glActiveTexture(GL_TEXTURE0);
-        //glBindTexture(GL_TEXTURE_2D, textureID);
 
         shader.Use();
         shader.SetVec3("viewPos", camera.Position);
@@ -305,8 +311,6 @@ int main()
         shader.SetMat4("projection", projection);
         shader.SetMat4("view", view);
 
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
         /*******************************************************/
         /*******************************************************/
         /*                       Render                        */  
@@ -315,15 +319,8 @@ int main()
         /******************************/
         /*        Draw Objects        */
         /******************************/
-        for (int i = 0; i < vHallways_Straight.size(); i++)
-        {
-            vHallways_Straight[i].Draw(shader);
-        }
-
-        for (int i = 0; i < vHallways_L.size(); i++)
-        {
-            vHallways_L[i].Draw(shader);
-        }
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        cScene.Draw(shader);
 
         if (bShowLights)
         {
@@ -331,14 +328,15 @@ int main()
             simpleShader.SetMat4("projection", projection);
             simpleShader.SetMat4("view", view);
             glBindVertexArray(cubeVAO);
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, dirLight.vPos);
-            simpleShader.SetMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+            //glm::mat4 model = glm::mat4(1.0f);
+            //model = glm::translate(model, lightPos);
+            //simpleShader.SetMat4("model", model);
+            //glDrawArrays(GL_TRIANGLES, 0, 36);
             for (int i = 0; i < pointLights.size(); i++)
             {
+                simpleShader.SetVec3("vColor", glm::vec3(1.0f, 1.0f, 1.0f));
                 glm::mat4 model = glm::mat4(1.0f);
-                model = glm::translate(model, pointLights[i].vPos);
+                model = glm::translate(model, pointLights[i].m_vPos);
                 model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
                 simpleShader.SetMat4("model", model);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -396,6 +394,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         bFlashlight = !bFlashlight;
     if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
         bDebug = !bDebug;
+    if (key == GLFW_KEY_L && action == GLFW_PRESS)
+        bShowLights = !bShowLights;
 }
 
 
