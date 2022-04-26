@@ -1,8 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include <memory>
-
 #include "Model.h"
 
 
@@ -12,12 +10,14 @@ class Object
         Model* m_pModelMesh;
 
     public:
-        Object(Model &modelMesh);
-        Object(Model &modelMesh, glm::vec3 position);
+        glm::vec3 vPos;
+        float fRotAngle;
+
+    public:
+        Object(Model &modelMesh, float rotAngle);
+        Object(Model &modelMesh, glm::vec3 position, float rotAngle);
 
         void Draw(Shader &shader);
-
-        glm::vec3 vPos;
 };
 
 #endif

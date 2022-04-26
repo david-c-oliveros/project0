@@ -145,20 +145,27 @@ int main()
     std::vector<Object> cubes;
     for (int i = 0; i < 8; i++)
     {
-        cubes.push_back(Object(cube, glm::vec3(2.0f * i, 0.0f, 0.0f)));
+        cubes.push_back(Object(cube, glm::vec3(2.0f * i, 0.0f, 0.0f), 0.0f));
     }
 
     std::vector<Object> vHallways_Straight;
     for (int i = 0; i < 8; i++)
     {
-        vHallways_Straight.push_back(Object(cModelHallway_Straight, glm::vec3(0.0f, 0.0f, 10.0f * i)));
+        vHallways_Straight.push_back(Object(cModelHallway_Straight, glm::vec3(0.0f, 0.0f, i * 10.0f), 0.0f));
     }
 
     std::vector<Object> vHallways_L;
+    float fStart = vHallways_Straight[vHallways_Straight.size() - 1].vPos.z;
     for (int i = 0; i < 1; i++)
     {
-        vHallways_L.push_back(Object(cModelHallway_L, glm::vec3(-9.0f, 0.0f, vHallways_Straight[vHallways_Straight.size() - 1].vPos.z + 9.0f)));
+        vHallways_L.push_back(Object(cModelHallway_L, glm::vec3(-9.0f, 0.0f, fStart + 9.0f), 0.0f));
     }
+
+    for (int i = 0; i < 4; i++)
+    {
+        vHallways_Straight.push_back(Object(cModelHallway_Straight, glm::vec3(fStart + 9.0f, 0.0f, 19.0f + i * 10.0f), -90.0f));
+    }
+
 
 
 
@@ -300,6 +307,11 @@ int main()
 
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+        /*******************************************************/
+        /*******************************************************/
+        /*                       Render                        */  
+        /*******************************************************/
+        /*******************************************************/
         /******************************/
         /*        Draw Objects        */
         /******************************/
