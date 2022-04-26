@@ -18,13 +18,14 @@
 
 void processInput(GLFWwindow* window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 const unsigned int SCR_WIDTH  = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
-Camera camera(glm::vec3(0.0f, 1.5f, 3.0f));
+Camera camera(glm::vec3(0.0f, 1.5f, 48.0f));
 
 float fDeltaTime = 0.0f;
 float fLastFrame = 0.0f;
@@ -34,6 +35,8 @@ float lastX = SCR_WIDTH / 2;
 float lastY = SCR_HEIGHT / 2;
 
 bool bShowLights = false;
+bool bFlashlight = false;
+bool bDebug = false;
 
 
 int main()
@@ -70,6 +73,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetKeyCallback(window, key_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
@@ -125,25 +129,37 @@ int main()
     };
 
     Model cube = Model("res/models/cube_scifi/obj/Cube.obj");
-    Model hallway_Cross = Model("extra/models/hallway/Hallway_Cross.obj");
-    Model hallway_Door = Model("extra/models/hallway/Hallway_Door.obj");
-    Model hallway_End = Model("extra/models/hallway/Hallway_End.obj");
-    Model hallway_L = Model("extra/models/hallway/Hallway_L.obj");
-    Model hallway_Ramp = Model("extra/models/hallway/Hallway_Ramp.obj");
-    Model hallway_Straight = Model("extra/models/hallway/Hallway_Straight.obj");
+    Model cModelHallway_Cross = Model("extra/models/hallway/Hallway_Cross.obj");
+    Model cModelHallway_Door = Model("extra/models/hallway/Hallway_Door.obj");
+    Model cModelHallway_End = Model("extra/models/hallway/Hallway_End.obj");
+    Model cModelHallway_L = Model("extra/models/hallway/Hallway_L.obj");
+    Model cModelHallway_Ramp = Model("extra/models/hallway/Hallway_Ramp.obj");
+    Model cModelHallway_Straight = Model("extra/models/hallway/Hallway_Straight.obj");
     
 
+    /******************************************************************/
+    /******************************************************************/
+    /*                       Build Environment                        */  
+    /******************************************************************/
+    /******************************************************************/
     std::vector<Object> cubes;
     for (int i = 0; i < 8; i++)
     {
         cubes.push_back(Object(cube, glm::vec3(2.0f * i, 0.0f, 0.0f)));
     }
 
-    std::vector<Object> hallways;
+    std::vector<Object> vHallways_Straight;
     for (int i = 0; i < 8; i++)
     {
-        hallways.push_back(Object(hallway_Straight, glm::vec3(0.0f, 0.0f, 10.0f * i)));
+        vHallways_Straight.push_back(Object(cModelHallway_Straight, glm::vec3(0.0f, 0.0f, 10.0f * i)));
     }
+
+    std::vector<Object> vHallways_L;
+    for (int i = 0; i < 1; i++)
+    {
+        vHallways_L.push_back(Object(cModelHallway_L, glm::vec3(-9.0f, 0.0f, vHallways_Straight[vHallways_Straight.size() - 1].vPos.z + 9.0f)));
+    }
+
 
 
     /*********************************************************/
@@ -248,11 +264,25 @@ int main()
         shader.SetVec3("viewPos", camera.Position);
         shader.SetFloat("material.shininess", 32.0f);
 
+        if (bDebug)
+            shader.SetVec3("dirLight.ambient", glm::vec3(0.5f, 0.5f, 0.5f));
+        else
+            shader.SetVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+
         shader.SetVec3("spotLight.position", camera.Position);
         shader.SetVec3("spotLight.direction", camera.Front);
-        shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-        shader.SetVec3("spotLight.diffuse", glm::vec3(1.0f, 1.1f, 1.0f));
-        shader.SetVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+        if (bFlashlight)
+        {
+            shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+            shader.SetVec3("spotLight.diffuse", glm::vec3(1.0f, 1.1f, 1.0f));
+            shader.SetVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+        }
+        else
+        {
+            shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+            shader.SetVec3("spotLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+            shader.SetVec3("spotLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+        }
         shader.SetFloat("spotLight.constant", 1.0f);
         shader.SetFloat("spotLight.linear", 0.09f);
         shader.SetFloat("spotLight.linear", 0.032f);
@@ -270,23 +300,18 @@ int main()
 
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-        //hallway_Cross.Draw(shader);
-        //hallway_Door.Draw(shader);
-        //hallway_End.Draw(shader);
-        //hallway_L.Draw(shader);
-        //hallway_Ramp.Draw(shader);
-        //hallway_Straight.Draw(shader);
-
-        for (int i = 0; i < hallways.size(); i++)
+        /******************************/
+        /*        Draw Objects        */
+        /******************************/
+        for (int i = 0; i < vHallways_Straight.size(); i++)
         {
-            hallways[i].Draw(shader);
+            vHallways_Straight[i].Draw(shader);
         }
 
-        //for (int i = 0; i < cubes.size(); i++)
-        //{
-        //    cubes[i].Draw(shader);
-        //}
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        for (int i = 0; i < vHallways_L.size(); i++)
+        {
+            vHallways_L[i].Draw(shader);
+        }
 
         if (bShowLights)
         {
@@ -324,13 +349,21 @@ void processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, fDeltaTime);
+        camera.ProcessKeyboard(FORWARD, fDeltaTime, bDebug);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, fDeltaTime);
+        camera.ProcessKeyboard(BACKWARD, fDeltaTime, bDebug);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, fDeltaTime);
+        camera.ProcessKeyboard(LEFT, fDeltaTime, bDebug);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, fDeltaTime);
+        camera.ProcessKeyboard(RIGHT, fDeltaTime, bDebug);
+
+    if (bDebug)
+    {
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+            camera.ProcessKeyboard(UP, fDeltaTime, bDebug);
+        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+            camera.ProcessKeyboard(DOWN, fDeltaTime, bDebug);
+    }
 
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         camera.bSprint = true;
@@ -347,6 +380,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+        bFlashlight = !bFlashlight;
+    if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
+        bDebug = !bDebug;
 }
 
 

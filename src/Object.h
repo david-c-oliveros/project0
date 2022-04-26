@@ -9,7 +9,6 @@
 class Object
 {
     private:
-        glm::vec3 m_vPos;
         Model* m_pModelMesh;
 
     public:
@@ -17,6 +16,8 @@ class Object
         Object(Model &modelMesh, glm::vec3 position);
 
         void Draw(Shader &shader);
+
+        glm::vec3 vPos;
 };
 
 #endif
