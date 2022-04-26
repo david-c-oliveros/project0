@@ -1,6 +1,7 @@
 #version 330 core
 
 #define NR_POINT_LIGHTS 4
+#define NR_SPOT_LIGHTS 1
 
 out vec4 FragColor;
 
@@ -54,12 +55,12 @@ in vec3 Normal;
 in vec2 TexCoords;
 
 uniform float intensityScalar;
-uniform vec3 viewPos;
-uniform Material material;
 
+uniform vec3 viewPos;
 uniform DirLight dirLight;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform SpotLight spotLight;
+uniform Material material;
 
 /***************************************/
 /*        Function Declarations        */
@@ -80,6 +81,7 @@ void main()
     /***********************************************/
     /*        Phase 1: Direcitonal Lighting        */
     /***********************************************/
+    //vec3 result = vec3(0.0, 0.0, 0.0);
     vec3 result = CalcDirLight(dirLight, norm, viewDir);
 
 
@@ -185,7 +187,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     /*        Attenuation        */
     /*****************************/
     float distance = length(light.position - fragPos);
-    float attenuation = intensityScalar / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
     /*************************************/
     /*        Spotlight Intensity        */
@@ -200,9 +202,9 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     vec3 ambient  = light.ambient  * vec3(texture(material.diffuse, TexCoords));
     vec3 diffuse  = light.diffuse  * diff * vec3(texture(material.diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
-    ambient  *= attenuation;
-    diffuse  *= attenuation;
-    specular *= attenuation;
+    ambient  *= attenuation * intensity;
+    diffuse  *= attenuation * intensity;
+    specular *= attenuation * intensity;
 
     return (ambient + diffuse + specular);
 }
