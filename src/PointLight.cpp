@@ -50,7 +50,7 @@ void PointLight::SetSpecular(Shader &shader, glm::vec3 specular)
 {
     m_vSpecular = specular;
     std::string i = std::to_string(iUniformIndex);
-    shader.SetVec3("pointLights[" + i + "].diffuse", m_vSpecular);
+    shader.SetVec3("pointLights[" + i + "].specular", m_vSpecular);
 }
 
 

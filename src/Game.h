@@ -18,6 +18,7 @@
 #include "Model.h"
 #include "Object.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -34,6 +35,7 @@ class Game
         Shader simpleShader;
 
         std::vector<PointLight> pointLights;
+        std::vector<SpotLight> spotLights;
 
         std::unique_ptr<Model> cEnv;
         std::unique_ptr<Model> cCube;

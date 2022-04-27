@@ -197,16 +197,21 @@ void Game::Create()
         pointLights[i].SetAllUniforms(shader);
         pointLights[i].SetDiffuse(shader, glm::vec3(0.1f, 0.1f, 0.1f));
     }
-    shader.SetVec3("spotLight.position", camera.Position);
-    shader.SetVec3("spotLight.direction", camera.Front);
-    shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-    shader.SetVec3("spotLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.SetVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.SetFloat("spotLight.constant", 1.0f);
-    shader.SetFloat("spotLight.linear", 0.09f);
-    shader.SetFloat("spotLight.linear", 0.032f);
-    shader.SetFloat("spotLight.cutOff", glm::cos(glm::radians(12.5)));
-    shader.SetFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0)));
+
+    spotLights.push_back(SpotLight(0, camera.Position, camera.Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+    spotLights[0].SetAllUniforms(shader);
+    spotLights[0].SetDiffuse(shader, glm::vec3(2.0f, 2.0f, 2.0f));
+    spotLights[0].SetSpecular(shader, glm::vec3(2.0f, 2.0f, 2.0f));
+    //shader.SetVec3("spotLight.position", camera.Position);
+    //shader.SetVec3("spotLight.direction", camera.Front);
+    //shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    //shader.SetVec3("spotLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
+    //shader.SetVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+    //shader.SetFloat("spotLight.constant", 1.0f);
+    //shader.SetFloat("spotLight.linear", 0.09f);
+    //shader.SetFloat("spotLight.linear", 0.032f);
+    //shader.SetFloat("spotLight.cutOff", glm::cos(glm::radians(12.5)));
+    //shader.SetFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0)));
 
     /*******************************/
     /*        Set Draw Mode        */
@@ -248,25 +253,18 @@ void Game::Update(float fDeltaTime)
     else
         shader.SetVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
 
-    shader.SetVec3("spotLight.position", camera.Position);
-    shader.SetVec3("spotLight.direction", camera.Front);
+    spotLights[0].SetPosition(shader, camera.Position);
+    spotLights[0].SetDirection(shader, camera.Front);
     if (bFlashlight)
     {
-        shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-        shader.SetVec3("spotLight.diffuse", glm::vec3(1.0f, 1.1f, 1.0f));
-        shader.SetVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+        spotLights[0].SetDiffuse(shader, glm::vec3(8.0f, 8.0f, 8.0f));
+        spotLights[0].SetSpecular(shader, glm::vec3(8.0f, 8.0f, 8.0f));
     }
     else
     {
-        shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-        shader.SetVec3("spotLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
-        shader.SetVec3("spotLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+        spotLights[0].SetDiffuse(shader, glm::vec3(0.0f, 0.0f, 0.0f));
+        spotLights[0].SetSpecular(shader, glm::vec3(0.0f, 0.0f, 0.0f));
     }
-    shader.SetFloat("spotLight.constant", 1.0f);
-    shader.SetFloat("spotLight.linear", 0.09f);
-    shader.SetFloat("spotLight.linear", 0.032f);
-    shader.SetFloat("spotLight.cutOff", glm::cos(glm::radians(12.5)));
-    shader.SetFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0)));
 
 
     /***********************************************/

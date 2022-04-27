@@ -59,7 +59,7 @@ uniform float intensityScalar;
 uniform vec3 viewPos;
 uniform DirLight dirLight;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
-uniform SpotLight spotLight;
+uniform SpotLight spotLights[NR_SPOT_LIGHTS];
 uniform Material material;
 
 /***************************************/
@@ -97,7 +97,10 @@ void main()
     /**************************************/
     /*        Phase 3: Spot Lights        */
     /**************************************/
-    result += CalcSpotLight(spotLight, norm, FragPos, viewDir);
+    for (int i = 0; i < NR_SPOT_LIGHTS; i++)
+    {
+        result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
+    }
 
     FragColor = vec4(result, 1.0);
 }

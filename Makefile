@@ -111,7 +111,8 @@ am_app_OBJECTS = $(top_builddir)/src/main.$(OBJEXT) \
 	$(top_builddir)/src/Mesh.$(OBJEXT) \
 	$(top_builddir)/src/Model.$(OBJEXT) \
 	$(top_builddir)/src/Object.$(OBJEXT) \
-	$(top_builddir)/src/PointLight.$(OBJEXT)
+	$(top_builddir)/src/PointLight.$(OBJEXT) \
+	$(top_builddir)/src/SpotLight.$(OBJEXT)
 app_OBJECTS = $(am_app_OBJECTS)
 app_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -136,6 +137,7 @@ am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
 	$(top_builddir)/src/$(DEPDIR)/Object.Po \
 	$(top_builddir)/src/$(DEPDIR)/PointLight.Po \
 	$(top_builddir)/src/$(DEPDIR)/Shader.Po \
+	$(top_builddir)/src/$(DEPDIR)/SpotLight.Po \
 	$(top_builddir)/src/$(DEPDIR)/main.Po \
 	$(top_builddir)/src/$(DEPDIR)/stb_image.Po
 am__mv = mv -f
@@ -305,7 +307,8 @@ app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/Mesh.cpp \
 			  $(top_srcdir)/src/Model.cpp \
 			  $(top_srcdir)/src/Object.cpp \
-			  $(top_srcdir)/src/PointLight.cpp
+			  $(top_srcdir)/src/PointLight.cpp \
+			  $(top_srcdir)/src/SpotLight.cpp
 
 AM_CXXFLAGS =  -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
 AM_LDFLAGS = -lGLEW -lGL -lX11 -lGLU -lOpenGL -lglfw  -lm -ldl -lassimp
@@ -437,6 +440,9 @@ $(top_builddir)/src/Object.$(OBJEXT):  \
 $(top_builddir)/src/PointLight.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/SpotLight.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 
 app$(EXEEXT): $(app_OBJECTS) $(app_DEPENDENCIES) $(EXTRA_app_DEPENDENCIES) 
 	@rm -f app$(EXEEXT)
@@ -456,6 +462,7 @@ include $(top_builddir)/src/$(DEPDIR)/Model.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/Object.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/PointLight.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/Shader.Po # am--include-marker
+include $(top_builddir)/src/$(DEPDIR)/SpotLight.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/main.Po # am--include-marker
 include $(top_builddir)/src/$(DEPDIR)/stb_image.Po # am--include-marker
 
@@ -763,6 +770,7 @@ distclean: distclean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Object.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/SpotLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
 	-rm -f Makefile
@@ -819,6 +827,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Object.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/SpotLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
 	-rm -f Makefile
