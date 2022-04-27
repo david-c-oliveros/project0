@@ -30,16 +30,15 @@ class Game
 {
     private:
         GLFWwindow* window;
-        //std::shared_ptr<Shader> shader;
-        //std::shared_ptr<Shader> simpleShader;
         Shader shader;
         Shader simpleShader;
 
         std::vector<PointLight> pointLights;
 
         std::unique_ptr<Model> cEnv;
-        //std::shared_ptr<Object> cScene;
+        std::unique_ptr<Model> cCube;
         Object cScene;
+        Object cCubeObj;
 
         unsigned int cubeVBO;
         unsigned int cubeVAO;

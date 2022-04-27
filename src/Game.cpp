@@ -131,9 +131,10 @@ void Game::Create()
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
+    cCube = std::make_unique<Model>("res/models/cube_scifi/obj/Cube.obj");
+    //cCubeObj.Create(std::move(cCube), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
     cEnv = std::make_unique<Model>("res/models/env_v01/game_env_v01.obj");
     cScene.Create(std::move(cEnv), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
-    //cScene.Create(cEnv, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 
 
     /*********************************************************/
@@ -182,13 +183,6 @@ void Game::Create()
     shader.SetVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
     float fLightSepDist = 4.0f;
-    std::vector<PointLight> pointLights;
-    glm::vec3 colors[] = {
-        glm::vec3(1.0, 0.0f, 0.0f),
-        glm::vec3(0.0, 1.0f, 0.0f),
-        glm::vec3(0.0, 0.0f, 1.0f),
-    };
-
     pointLights.push_back(PointLight(0, glm::vec3(-0.22f,  3.5f, -36.5 + (0 * fLightSepDist))));
     pointLights.push_back(PointLight(1, glm::vec3(-0.22f,  3.5f, -36.5 + (1 * fLightSepDist))));
     pointLights.push_back(PointLight(2, glm::vec3(-0.22f,  3.5f, -34.8 + (2 * fLightSepDist))));
@@ -227,7 +221,6 @@ void Game::Start()
 
     while (!glfwWindowShouldClose(window))
     {
-        std::cout << iTicks << std::endl;
         fDeltaTime = fCurrentFrame - fLastFrame;
         fLastFrame = fCurrentFrame;
 
@@ -292,8 +285,9 @@ void Game::Update(float fDeltaTime)
     /******************************/
     /*        Draw Objects        */
     /******************************/
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     cScene.Draw(shader);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     if (bShowLights)
     {
@@ -350,6 +344,13 @@ void Game::processInput(GLFWwindow* window)
 }
 
 
+
+
+/************************************************************************/
+/************************************************************************/
+/*                       GLFW Callback Functions                        */  
+/************************************************************************/
+/************************************************************************/
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -363,7 +364,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
         bDebug = !bDebug;
     if (key == GLFW_KEY_L && action == GLFW_PRESS)
+    {
         bShowLights = !bShowLights;
+        std::cout << bShowLights << std::endl;
+    }
 }
 
 
