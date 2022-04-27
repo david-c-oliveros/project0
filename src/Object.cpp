@@ -1,15 +1,28 @@
 #include "Object.h"
 
 
-Object::Object(Model &modelMesh, float rotAngle)
-    : m_pModelMesh(&modelMesh), vPos(glm::vec3(0.0f, 0.0f, 0.0f)), fRotAngle(rotAngle)
+Object::Object()
 {
 }
 
 
-Object::Object(Model &modelMesh, glm::vec3 pos, float rotAngle)
-    : m_pModelMesh(&modelMesh), vPos(pos), fRotAngle(rotAngle)
+Object::Object(std::unique_ptr<Model> modelMesh, float rotAngle)
+    : m_pModelMesh(std::move(modelMesh)), vPos(glm::vec3(0.0f, 0.0f, 0.0f)), fRotAngle(rotAngle)
 {
+}
+
+
+Object::Object(std::unique_ptr<Model> modelMesh, glm::vec3 pos, float rotAngle)
+    : m_pModelMesh(std::move(modelMesh)), vPos(pos), fRotAngle(rotAngle)
+{
+}
+
+
+void Object::Create(std::unique_ptr<Model> modelMesh, glm::vec3 pos, float rotAngle)
+{
+    m_pModelMesh = std::move(modelMesh);
+    vPos = pos;
+    fRotAngle = rotAngle;
 }
 
 

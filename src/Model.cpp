@@ -115,7 +115,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
 
-    return Mesh(vertices, indices,textures);
+    return Mesh(vertices, indices, textures);
 }
 
 
@@ -156,7 +156,8 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 unsigned int TextureFromFile(const char* path, const std::string &directory, bool gamma)
 {
     std::string filename = std::string(path);
-    filename = directory + '/' + filename;
+    //filename = directory + '/' + filename;
+    filename = "res/models/env_v01/container2.png";
 
     unsigned int textureID;
     glGenTextures(1, &textureID);

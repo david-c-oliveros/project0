@@ -3,7 +3,7 @@
 
 int main ()
 {
-    Game game = Game(1920, 1080);
+    Game game = Game();
 
     if (game.Construct())
         game.Start();

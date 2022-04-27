@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <iostream>
+#include <memory>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -12,8 +13,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/random.hpp>
 
-#include "glfwCallbacks.h"
-
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
@@ -21,34 +20,41 @@
 #include "PointLight.h"
 
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
+
 class Game
 {
     private:
-        unsigned int iScreenWidth  = 1920;
-        unsigned int iScreenHeight = 1080;
+        GLFWwindow* window;
+        //std::shared_ptr<Shader> shader;
+        //std::shared_ptr<Shader> simpleShader;
+        Shader shader;
+        Shader simpleShader;
 
-        Camera camera;
+        std::vector<PointLight> pointLights;
 
-        float fDeltaTime = 0.0f;
-        float fLastFrame = 0.0f;
+        std::unique_ptr<Model> cEnv;
+        //std::shared_ptr<Object> cScene;
+        Object cScene;
 
-        float bFirstMouse = true;
-        float lastX = iScreenWidth / 2;
-        float lastY = iScreenHeight / 2;
-
-        bool bShowLights = true;
-        bool bFlashlight = false;
-        bool bDebug = false;
+        unsigned int cubeVBO;
+        unsigned int cubeVAO;
 
     public:
-        Game(int width, int height);
+        Game();
         ~Game();
 
         bool Construct();
         void Start();
         void Create();
-        void Update();
-        void Render();
+        void Update(float fDeltaTime);
+        void processInput(GLFWwindow* window);
+
+    private:
 };
 
 #endif

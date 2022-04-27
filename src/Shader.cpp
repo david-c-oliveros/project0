@@ -1,9 +1,21 @@
 #include "Shader.h"
 
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
-    : vertexName(vertexPath), fragmentName(fragmentPath)
+Shader::Shader()
 {
+}
+
+
+Shader::~Shader()
+{
+    glDeleteProgram(ID);
+}
+
+
+void Shader::Create(const char* vertexPath, const char* fragmentPath)
+{
+    vertexName = vertexPath;
+    fragmentName = fragmentPath;
     std::string vertexCode;
     std::string fragmentCode;
     std::ifstream vShaderFile;
@@ -90,12 +102,6 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
     glDeleteShader(vertex);
     glDeleteShader(fragment);
-}
-
-
-Shader::~Shader()
-{
-    glDeleteProgram(ID);
 }
 
 

@@ -1,4 +1,4 @@
-src/main.o: src/main.cpp /usr/include/stdc-predef.h \
+src/main.o: src/main.cpp /usr/include/stdc-predef.h src/Game.h \
  /usr/include/c++/11.2.0/iostream \
  /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -128,7 +128,28 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11.2.0/bits/locale_facets.tcc \
  /usr/include/c++/11.2.0/bits/basic_ios.tcc \
  /usr/include/c++/11.2.0/bits/ostream.tcc /usr/include/c++/11.2.0/istream \
- /usr/include/c++/11.2.0/bits/istream.tcc /usr/include/GL/glew.h \
+ /usr/include/c++/11.2.0/bits/istream.tcc /usr/include/c++/11.2.0/memory \
+ /usr/include/c++/11.2.0/bits/stl_uninitialized.h \
+ /usr/include/c++/11.2.0/bits/stl_tempbuf.h \
+ /usr/include/c++/11.2.0/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/11.2.0/bits/align.h /usr/include/c++/11.2.0/bit \
+ /usr/include/c++/11.2.0/bits/uses_allocator.h \
+ /usr/include/c++/11.2.0/bits/unique_ptr.h \
+ /usr/include/c++/11.2.0/utility \
+ /usr/include/c++/11.2.0/bits/stl_relops.h /usr/include/c++/11.2.0/tuple \
+ /usr/include/c++/11.2.0/array /usr/include/c++/11.2.0/bits/invoke.h \
+ /usr/include/c++/11.2.0/bits/shared_ptr.h \
+ /usr/include/c++/11.2.0/bits/shared_ptr_base.h \
+ /usr/include/c++/11.2.0/bits/allocated_ptr.h \
+ /usr/include/c++/11.2.0/bits/refwrap.h \
+ /usr/include/c++/11.2.0/ext/aligned_buffer.h \
+ /usr/include/c++/11.2.0/ext/concurrence.h \
+ /usr/include/c++/11.2.0/bits/shared_ptr_atomic.h \
+ /usr/include/c++/11.2.0/bits/atomic_base.h \
+ /usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/11.2.0/backward/auto_ptr.h \
+ /usr/include/c++/11.2.0/pstl/glue_memory_defs.h \
+ /usr/include/c++/11.2.0/pstl/execution_defs.h /usr/include/GL/glew.h \
  /usr/include/c++/11.2.0/cstddef /usr/include/GL/glu.h \
  /usr/include/GL/gl.h /usr/local/include/GLFW/glfw3.h include/stb_image.h \
  /usr/include/c++/11.2.0/stdlib.h include/glm/glm/glm.hpp \
@@ -340,19 +361,12 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
  /usr/include/c++/11.2.0/bits/fstream.tcc /usr/include/c++/11.2.0/sstream \
  /usr/include/c++/11.2.0/bits/sstream.tcc src/Camera.h \
- /usr/include/c++/11.2.0/vector \
- /usr/include/c++/11.2.0/bits/stl_uninitialized.h \
- /usr/include/c++/11.2.0/bits/stl_vector.h \
+ /usr/include/c++/11.2.0/vector /usr/include/c++/11.2.0/bits/stl_vector.h \
  /usr/include/c++/11.2.0/bits/stl_bvector.h \
  /usr/include/c++/11.2.0/bits/vector.tcc src/Model.h \
  /usr/include/c++/11.2.0/map /usr/include/c++/11.2.0/bits/stl_tree.h \
- /usr/include/c++/11.2.0/ext/aligned_buffer.h \
  /usr/include/c++/11.2.0/bits/node_handle.h \
- /usr/include/c++/11.2.0/bits/stl_map.h /usr/include/c++/11.2.0/tuple \
- /usr/include/c++/11.2.0/utility \
- /usr/include/c++/11.2.0/bits/stl_relops.h /usr/include/c++/11.2.0/array \
- /usr/include/c++/11.2.0/bits/uses_allocator.h \
- /usr/include/c++/11.2.0/bits/invoke.h \
+ /usr/include/c++/11.2.0/bits/stl_map.h \
  /usr/include/c++/11.2.0/bits/stl_multimap.h \
  /usr/include/c++/11.2.0/bits/erase_if.h /usr/include/assimp/Importer.hpp \
  /usr/include/assimp/types.h /usr/include/assimp/defs.h \
@@ -365,17 +379,14 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11.2.0/bits/stl_algo.h \
  /usr/include/c++/11.2.0/bits/algorithmfwd.h \
  /usr/include/c++/11.2.0/bits/stl_heap.h \
- /usr/include/c++/11.2.0/bits/stl_tempbuf.h \
  /usr/include/c++/11.2.0/bits/uniform_int_dist.h \
  /usr/include/c++/11.2.0/pstl/glue_algorithm_defs.h \
  /usr/include/c++/11.2.0/functional \
- /usr/include/c++/11.2.0/bits/refwrap.h \
  /usr/include/c++/11.2.0/bits/std_function.h \
  /usr/include/c++/11.2.0/unordered_map \
  /usr/include/c++/11.2.0/bits/hashtable.h \
  /usr/include/c++/11.2.0/bits/hashtable_policy.h \
  /usr/include/c++/11.2.0/bits/unordered_map.h \
- /usr/include/c++/11.2.0/pstl/execution_defs.h \
  /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
  /usr/include/assimp/quaternion.inl /usr/include/assimp/BaseImporter.h \
  /usr/include/assimp/Exceptional.h /usr/include/assimp/DefaultIOStream.h \
@@ -383,22 +394,8 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/assimp/TinyFormatter.h \
  /usr/include/assimp/ProgressHandler.hpp /usr/include/c++/11.2.0/set \
  /usr/include/c++/11.2.0/bits/stl_set.h \
- /usr/include/c++/11.2.0/bits/stl_multiset.h \
- /usr/include/c++/11.2.0/memory \
- /usr/include/c++/11.2.0/bits/stl_raw_storage_iter.h \
- /usr/include/c++/11.2.0/bits/align.h /usr/include/c++/11.2.0/bit \
- /usr/include/c++/11.2.0/bits/unique_ptr.h \
- /usr/include/c++/11.2.0/bits/shared_ptr.h \
- /usr/include/c++/11.2.0/bits/shared_ptr_base.h \
- /usr/include/c++/11.2.0/bits/allocated_ptr.h \
- /usr/include/c++/11.2.0/ext/concurrence.h \
- /usr/include/c++/11.2.0/bits/shared_ptr_atomic.h \
- /usr/include/c++/11.2.0/bits/atomic_base.h \
- /usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h \
- /usr/include/c++/11.2.0/backward/auto_ptr.h \
- /usr/include/c++/11.2.0/pstl/glue_memory_defs.h \
- /usr/include/assimp/scene.h /usr/include/assimp/texture.h \
- /usr/include/assimp/Compiler/pushpack1.h \
+ /usr/include/c++/11.2.0/bits/stl_multiset.h /usr/include/assimp/scene.h \
+ /usr/include/assimp/texture.h /usr/include/assimp/Compiler/pushpack1.h \
  /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/mesh.h \
  /usr/include/assimp/aabb.h /usr/include/assimp/light.h \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
@@ -414,6 +411,7 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
  include/glm/glm/gtx/../gtx/dual_quaternion.inl \
  include/glm/glm/gtx/string_cast.inl /usr/include/c++/11.2.0/cstdarg
 /usr/include/stdc-predef.h:
+src/Game.h:
 /usr/include/c++/11.2.0/iostream:
 /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/c++config.h:
 /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/os_defines.h:
@@ -594,6 +592,31 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h \
 /usr/include/c++/11.2.0/bits/ostream.tcc:
 /usr/include/c++/11.2.0/istream:
 /usr/include/c++/11.2.0/bits/istream.tcc:
+/usr/include/c++/11.2.0/memory:
+/usr/include/c++/11.2.0/bits/stl_uninitialized.h:
+/usr/include/c++/11.2.0/bits/stl_tempbuf.h:
+/usr/include/c++/11.2.0/bits/stl_raw_storage_iter.h:
+/usr/include/c++/11.2.0/bits/align.h:
+/usr/include/c++/11.2.0/bit:
+/usr/include/c++/11.2.0/bits/uses_allocator.h:
+/usr/include/c++/11.2.0/bits/unique_ptr.h:
+/usr/include/c++/11.2.0/utility:
+/usr/include/c++/11.2.0/bits/stl_relops.h:
+/usr/include/c++/11.2.0/tuple:
+/usr/include/c++/11.2.0/array:
+/usr/include/c++/11.2.0/bits/invoke.h:
+/usr/include/c++/11.2.0/bits/shared_ptr.h:
+/usr/include/c++/11.2.0/bits/shared_ptr_base.h:
+/usr/include/c++/11.2.0/bits/allocated_ptr.h:
+/usr/include/c++/11.2.0/bits/refwrap.h:
+/usr/include/c++/11.2.0/ext/aligned_buffer.h:
+/usr/include/c++/11.2.0/ext/concurrence.h:
+/usr/include/c++/11.2.0/bits/shared_ptr_atomic.h:
+/usr/include/c++/11.2.0/bits/atomic_base.h:
+/usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h:
+/usr/include/c++/11.2.0/backward/auto_ptr.h:
+/usr/include/c++/11.2.0/pstl/glue_memory_defs.h:
+/usr/include/c++/11.2.0/pstl/execution_defs.h:
 /usr/include/GL/glew.h:
 /usr/include/c++/11.2.0/cstddef:
 /usr/include/GL/glu.h:
@@ -839,22 +862,14 @@ src/Shader.h:
 /usr/include/c++/11.2.0/bits/sstream.tcc:
 src/Camera.h:
 /usr/include/c++/11.2.0/vector:
-/usr/include/c++/11.2.0/bits/stl_uninitialized.h:
 /usr/include/c++/11.2.0/bits/stl_vector.h:
 /usr/include/c++/11.2.0/bits/stl_bvector.h:
 /usr/include/c++/11.2.0/bits/vector.tcc:
 src/Model.h:
 /usr/include/c++/11.2.0/map:
 /usr/include/c++/11.2.0/bits/stl_tree.h:
-/usr/include/c++/11.2.0/ext/aligned_buffer.h:
 /usr/include/c++/11.2.0/bits/node_handle.h:
 /usr/include/c++/11.2.0/bits/stl_map.h:
-/usr/include/c++/11.2.0/tuple:
-/usr/include/c++/11.2.0/utility:
-/usr/include/c++/11.2.0/bits/stl_relops.h:
-/usr/include/c++/11.2.0/array:
-/usr/include/c++/11.2.0/bits/uses_allocator.h:
-/usr/include/c++/11.2.0/bits/invoke.h:
 /usr/include/c++/11.2.0/bits/stl_multimap.h:
 /usr/include/c++/11.2.0/bits/erase_if.h:
 /usr/include/assimp/Importer.hpp:
@@ -875,17 +890,14 @@ src/Model.h:
 /usr/include/c++/11.2.0/bits/stl_algo.h:
 /usr/include/c++/11.2.0/bits/algorithmfwd.h:
 /usr/include/c++/11.2.0/bits/stl_heap.h:
-/usr/include/c++/11.2.0/bits/stl_tempbuf.h:
 /usr/include/c++/11.2.0/bits/uniform_int_dist.h:
 /usr/include/c++/11.2.0/pstl/glue_algorithm_defs.h:
 /usr/include/c++/11.2.0/functional:
-/usr/include/c++/11.2.0/bits/refwrap.h:
 /usr/include/c++/11.2.0/bits/std_function.h:
 /usr/include/c++/11.2.0/unordered_map:
 /usr/include/c++/11.2.0/bits/hashtable.h:
 /usr/include/c++/11.2.0/bits/hashtable_policy.h:
 /usr/include/c++/11.2.0/bits/unordered_map.h:
-/usr/include/c++/11.2.0/pstl/execution_defs.h:
 /usr/include/assimp/matrix4x4.inl:
 /usr/include/assimp/MathFunctions.h:
 /usr/include/assimp/quaternion.inl:
@@ -899,20 +911,6 @@ src/Model.h:
 /usr/include/c++/11.2.0/set:
 /usr/include/c++/11.2.0/bits/stl_set.h:
 /usr/include/c++/11.2.0/bits/stl_multiset.h:
-/usr/include/c++/11.2.0/memory:
-/usr/include/c++/11.2.0/bits/stl_raw_storage_iter.h:
-/usr/include/c++/11.2.0/bits/align.h:
-/usr/include/c++/11.2.0/bit:
-/usr/include/c++/11.2.0/bits/unique_ptr.h:
-/usr/include/c++/11.2.0/bits/shared_ptr.h:
-/usr/include/c++/11.2.0/bits/shared_ptr_base.h:
-/usr/include/c++/11.2.0/bits/allocated_ptr.h:
-/usr/include/c++/11.2.0/ext/concurrence.h:
-/usr/include/c++/11.2.0/bits/shared_ptr_atomic.h:
-/usr/include/c++/11.2.0/bits/atomic_base.h:
-/usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h:
-/usr/include/c++/11.2.0/backward/auto_ptr.h:
-/usr/include/c++/11.2.0/pstl/glue_memory_defs.h:
 /usr/include/assimp/scene.h:
 /usr/include/assimp/texture.h:
 /usr/include/assimp/Compiler/pushpack1.h:

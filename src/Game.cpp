@@ -1,8 +1,28 @@
 #include "Game.h"
 
 
-Game::Game(int width, int height)
-    : fDeltaTime(0.0f), fLastFrame(0.0f), bFirstMouse(true)
+unsigned int SCR_WIDTH  = 1920;
+unsigned int SCR_HEIGHT = 1080;
+
+Camera camera = Camera(glm::vec3(0.0f, 1.5f, 48.0f));
+
+int iCreateCount = 0;
+int iTicks = 0;
+
+float fDeltaTime = 0.0f;
+float fLastFrame = 0.0f;
+float fCurrentFrame = 0.0f;
+
+float bFirstMouse = true;
+float lastX = SCR_WIDTH / 2;
+float lastY = SCR_HEIGHT / 2;
+
+bool bShowLights = true;
+bool bFlashlight = false;
+bool bDebug = false;
+
+
+Game::Game()
 {
 }
 
@@ -24,7 +44,7 @@ bool Game::Construct()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Welcome to Project 0", NULL, NULL);
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Welcome to Project 0", NULL, NULL);
 
     if (window == NULL)
     {
@@ -61,7 +81,7 @@ bool Game::Construct()
 
 void Game::Create()
 {
-    camera = Camera(glm::vec3(0.0f, 1.5f, 48.0f));
+    iCreateCount++;
     /****************************************************/
     /****************************************************/
     /*                       Cube                       */  
@@ -111,49 +131,9 @@ void Game::Create()
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
-    Model cube = Model("res/models/cube_scifi/obj/Cube.obj");
-    Model cModelHallway_Cross = Model("extra/models/hallway/Hallway_Cross.obj");
-    Model cModelHallway_Door = Model("extra/models/hallway/Hallway_Door.obj");
-    Model cModelHallway_End = Model("extra/models/hallway/Hallway_End.obj");
-    Model cModelHallway_L = Model("extra/models/hallway/Hallway_L.obj");
-    Model cModelHallway_Ramp = Model("extra/models/hallway/Hallway_Ramp.obj");
-    Model cModelHallway_Straight = Model("extra/models/hallway/Hallway_Straight.obj");
-
-    Model cEnv = Model("res/models/env_v01/game_env_v01.obj");
-    
-
-    /******************************************************************/
-    /******************************************************************/
-    /*                       Build Environment                        */  
-    /******************************************************************/
-    /******************************************************************/
-    Object cScene = Object(cEnv, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
-
-    std::vector<Object> cubes;
-    for (int i = 0; i < 8; i++)
-    {
-        cubes.push_back(Object(cube, glm::vec3(2.0f * i, 0.0f, 0.0f), 0.0f));
-    }
-
-    std::vector<Object> vHallways_Straight;
-    for (int i = 0; i < 8; i++)
-    {
-        vHallways_Straight.push_back(Object(cModelHallway_Straight, glm::vec3(0.0f, 0.0f, i * 10.0f), 0.0f));
-    }
-
-    std::vector<Object> vHallways_L;
-    float fStart = vHallways_Straight[vHallways_Straight.size() - 1].vPos.z;
-    for (int i = 0; i < 1; i++)
-    {
-        vHallways_L.push_back(Object(cModelHallway_L, glm::vec3(-9.0f, 0.0f, fStart + 9.0f), 0.0f));
-    }
-
-    for (int i = 0; i < 4; i++)
-    {
-        vHallways_Straight.push_back(Object(cModelHallway_Straight, glm::vec3(fStart + 9.0f, 0.0f, 19.0f + i * 10.0f), -90.0f));
-    }
-
-
+    cEnv = std::make_unique<Model>("res/models/env_v01/game_env_v01.obj");
+    cScene.Create(std::move(cEnv), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+    //cScene.Create(cEnv, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 
 
     /*********************************************************/
@@ -161,7 +141,6 @@ void Game::Create()
     /*                       VAO, VBO                        */  
     /*********************************************************/
     /*********************************************************/
-    unsigned int cubeVBO, cubeVAO;
     glGenVertexArrays(1, &cubeVAO);
     glGenBuffers(1, &cubeVBO);
 
@@ -183,10 +162,9 @@ void Game::Create()
     /*                       Shaders                       */  
     /*******************************************************/
     /*******************************************************/
-    Shader simpleShader("shaders/vSimple.shader", "shaders/fSimple.shader");
-    Shader shader("shaders/vLight.shader", "shaders/fLight.shader");
+    shader.Create("shaders/vLight.shader", "shaders/fLight.shader");
+    simpleShader.Create("shaders/vSimple.shader", "shaders/fSimple.shader");
     shader.Use();
-    //shader.SetInt("texture_diffuse1", 0);
     stbi_set_flip_vertically_on_load(true);
 
 
@@ -245,27 +223,26 @@ void Game::Create()
 
 void Game::Start()
 {
-    OnCreate();
+    Create();
 
     while (!glfwWindowShouldClose(window))
     {
+        std::cout << iTicks << std::endl;
         fDeltaTime = fCurrentFrame - fLastFrame;
         fLastFrame = fCurrentFrame;
 
         Update(fDeltaTime);
-        Render();
-
-        glfwTerminate();
+        iTicks++;
     }
+    glfwTerminate();
 }
 
 
 void Game::Update(float fDeltaTime)
 {
-    float fCurrentFrame = static_cast<float>(glfwGetTime());
+    fCurrentFrame = static_cast<float>(glfwGetTime());
 
     processInput(window);
-
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -315,7 +292,7 @@ void Game::Update(float fDeltaTime)
     /******************************/
     /*        Draw Objects        */
     /******************************/
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     cScene.Draw(shader);
 
     if (bShowLights)
@@ -344,8 +321,7 @@ void Game::Update(float fDeltaTime)
     glfwPollEvents();
 }
 
-
-void processInput(GLFWwindow* window)
+void Game::processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);

@@ -17,9 +17,10 @@ class Shader
         const char* vertexName;
         const char* fragmentName;
 
-        Shader(const char* vertexPath, const char* fragmentPath);
+        Shader();
         ~Shader();
 
+        void Create(const char* vertexPath, const char* fragmentPath);
         void Use();
         void PrintName();
 

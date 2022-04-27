@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -47,6 +48,7 @@ class Mesh
         unsigned int VAO;
 
         Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+        //void Draw(std::shared_ptr<Shader> shader);
         void Draw(Shader &shader);
 
     private:
