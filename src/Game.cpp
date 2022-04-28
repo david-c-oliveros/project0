@@ -195,7 +195,7 @@ void Game::Create()
     glm::vec3 spec = glm::vec3(1.0f);
     for (int i = 0; i < 16; i++)
     {
-        pointLights.push_back(PointLight(i, glm::vec3(-0.22, 3.3f, -36.5 + (i * fLightSepDist)), amb, diff, spec));
+        pointLights.push_back(PointLight("res/models/env_v01/game_env_light_tubes.obj", i, glm::vec3(-0.22, 3.3f, -36.5 + (i * fLightSepDist)), amb, diff, spec));
     }
 
     for (int i = 0; i < pointLights.size(); i++)

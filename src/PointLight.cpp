@@ -1,13 +1,15 @@
 #include "PointLight.h"
 
 
-PointLight::PointLight(int uIndex, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse,
-                       glm::vec3 specular, float constant, float linear, float quadratic)
+PointLight::PointLight(std::string modelPath, int uIndex, glm::vec3 position,
+                       glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
     : iUniformIndex(uIndex), m_vPos(position), m_vAmbient(ambient), m_vDiffuse(diffuse),
-      m_vSpecular(specular), m_fConstant(constant), m_fLinear(linear), m_fQuadratic(quadratic),
+      m_vSpecular(specular), m_fConstant(1.0f), m_fLinear(1.0f), m_fQuadratic(0.032f),
       m_vLightColor(diffuse), m_bEffects(false)
 {
     vCol = m_vLightColor;
+    cLightModel = std::make_unique<Model>(modelPath);
+    cLightObject = std::make_unique<Object>(std::move(cLightModel), m_vPos, 0.0f);
 }
 
 
@@ -18,7 +20,7 @@ void PointLight::Draw(Shader &shader)
     model = glm::translate(model, m_vPos);
     model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
     shader.SetMat4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    cLightObject->Draw(shader);
 }
 
 
