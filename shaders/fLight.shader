@@ -1,6 +1,6 @@
 #version 330 core
 
-#define NR_POINT_LIGHTS 4
+#define NR_POINT_LIGHTS 16
 #define NR_SPOT_LIGHTS 1
 
 out vec4 FragColor;

@@ -25,7 +25,7 @@ class PointLight
 
     public:
         glm::vec3 m_vPos;
-        PointLight(int uIndex, glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 ambient = glm::vec3(0.1f, 0.1f, 0.1f),
+        PointLight(int uIndex, glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 ambient = glm::vec3(0.0f, 0.0f, 0.0f),
                    glm::vec3 diffuse = glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3 specular = glm::vec3(1.0f, 1.0f, 1.0f),
                    float constant = 1.0f, float linear = 1.09f, float quadratic = 0.032f);
 

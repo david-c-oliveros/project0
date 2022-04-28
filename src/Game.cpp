@@ -17,6 +17,9 @@ float bFirstMouse = true;
 float lastX = SCR_WIDTH / 2;
 float lastY = SCR_HEIGHT / 2;
 
+float fTorchLevel = 1.0f;
+glm::vec3 vTorchColor = glm::vec3(1.0f, 1.0f, 1.0f);
+
 bool bShowLights = true;
 bool bFlashlight = false;
 bool bDebug = false;
@@ -132,7 +135,6 @@ void Game::Create()
     };
 
     cCube = std::make_unique<Model>("res/models/cube_scifi/obj/Cube.obj");
-    //cCubeObj.Create(std::move(cCube), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
     cEnv = std::make_unique<Model>("res/models/env_v01/game_env_v01.obj");
     cScene.Create(std::move(cEnv), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 
@@ -183,14 +185,13 @@ void Game::Create()
     shader.SetVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
     float fLightSepDist = 4.0f;
-    pointLights.push_back(PointLight(0, glm::vec3(-0.22f,  3.5f, -36.5 + (0 * fLightSepDist))));
-    pointLights.push_back(PointLight(1, glm::vec3(-0.22f,  3.5f, -36.5 + (1 * fLightSepDist))));
-    pointLights.push_back(PointLight(2, glm::vec3(-0.22f,  3.5f, -34.8 + (2 * fLightSepDist))));
-    pointLights.push_back(PointLight(3, glm::vec3(-0.22f,  3.5f, -36.5 + (3 * fLightSepDist))));
-    pointLights.push_back(PointLight(4, glm::vec3(-0.22f,  3.5f, -36.5 + (4 * fLightSepDist))));
-    pointLights.push_back(PointLight(5, glm::vec3(-0.22f,  3.5f, -34.8 + (5 * fLightSepDist))));
-    pointLights.push_back(PointLight(6, glm::vec3(-0.22f,  3.5f, -34.8 + (6 * fLightSepDist))));
-    pointLights.push_back(PointLight(7, glm::vec3(-0.22f,  3.5f, -34.8 + (7 * fLightSepDist))));
+    glm::vec3 amb  = glm::vec3(0.0f);
+    glm::vec3 diff = glm::vec3(2.0f);
+    glm::vec3 spec = glm::vec3(2.0f);
+    for (int i = 0; i < 16; i++)
+    {
+        pointLights.push_back(PointLight(i, glm::vec3(-0.22, 3.3f, -36.5 + (i * fLightSepDist)), amb, diff, spec));
+    }
 
     for (int i = 0; i < pointLights.size(); i++)
     {
@@ -200,18 +201,8 @@ void Game::Create()
 
     spotLights.push_back(SpotLight(0, camera.Position, camera.Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
     spotLights[0].SetAllUniforms(shader);
-    spotLights[0].SetDiffuse(shader, glm::vec3(2.0f, 2.0f, 2.0f));
-    spotLights[0].SetSpecular(shader, glm::vec3(2.0f, 2.0f, 2.0f));
-    //shader.SetVec3("spotLight.position", camera.Position);
-    //shader.SetVec3("spotLight.direction", camera.Front);
-    //shader.SetVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-    //shader.SetVec3("spotLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-    //shader.SetVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-    //shader.SetFloat("spotLight.constant", 1.0f);
-    //shader.SetFloat("spotLight.linear", 0.09f);
-    //shader.SetFloat("spotLight.linear", 0.032f);
-    //shader.SetFloat("spotLight.cutOff", glm::cos(glm::radians(12.5)));
-    //shader.SetFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0)));
+    spotLights[0].SetDiffuse(shader, vTorchColor);
+    spotLights[0].SetSpecular(shader, vTorchColor);
 
     /*******************************/
     /*        Set Draw Mode        */
@@ -257,8 +248,8 @@ void Game::Update(float fDeltaTime)
     spotLights[0].SetDirection(shader, camera.Front);
     if (bFlashlight)
     {
-        spotLights[0].SetDiffuse(shader, glm::vec3(8.0f, 8.0f, 8.0f));
-        spotLights[0].SetSpecular(shader, glm::vec3(8.0f, 8.0f, 8.0f));
+        spotLights[0].SetDiffuse(shader, vTorchColor);
+        spotLights[0].SetSpecular(shader, vTorchColor);
     }
     else
     {
@@ -362,9 +353,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
         bDebug = !bDebug;
     if (key == GLFW_KEY_L && action == GLFW_PRESS)
-    {
         bShowLights = !bShowLights;
-        std::cout << bShowLights << std::endl;
+
+    if (key == GLFW_KEY_UP)
+    {
+        fTorchLevel += 0.1f;
+        vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
+        if (fTorchLevel > 8.0f)
+        {
+            fTorchLevel = 8.0f;
+            vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
+        }
+    }
+    if (key == GLFW_KEY_DOWN)
+    {
+        fTorchLevel -= 0.1f;
+        vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
+        if (fTorchLevel < 0.0f)
+        {
+            fTorchLevel = 0.0f;
+            vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
+        }
     }
 }
 
