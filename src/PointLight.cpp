@@ -13,15 +13,12 @@ PointLight::PointLight(int uIndex, glm::vec3 position, glm::vec3 ambient, glm::v
 
 void PointLight::Draw(Shader &shader)
 {
-    //shader.Use();
-    //glm::mat4 model = glm::mat4(1.0f);
-    //model = glm::translate(model, vPos);
-    //model = glm::scale(model, glm::vec3(0.2, 0.2, 0.2));
-    //std::cout << "\nPosition: " << glm::to_string(vPos) << std::endl;
-    //std::cout << "Model matrix:\n" << glm::to_string(model) << std::endl;
-    //shader.SetMat4("model", model);
+    shader.SetVec3("vColor", 10.0f * vCol);
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, m_vPos);
+    model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+    shader.SetMat4("model", model);
     glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
 }
 
 
@@ -92,11 +89,17 @@ void PointLight::Flicker(Shader &shader)
     if (cFlickerTimer.Check())
     {
         bOn = !bOn;
-        vCol = (float)bOn * m_vLightColor;
+        float fNextVal = glm::linearRand(0.5f, 1.0f);
+        vCol = fNextVal * m_vLightColor;
         glm::vec3 vSpec = 10.0f * vCol;
+
         SetDiffuse(shader, vCol);
         SetSpecular(shader, vSpec);
+
+        int fNextInterval = glm::linearRand(3.0f, 8.0f);
+
         cFlickerTimer.Reset();
+        cFlickerTimer.ChangeMax(fNextInterval);
         cFlickerTimer.Start();
     }
     else

@@ -294,18 +294,9 @@ void Game::Update(float fDeltaTime)
         simpleShader.SetMat4("projection", projection);
         simpleShader.SetMat4("view", view);
         glBindVertexArray(cubeVAO);
-        //glm::mat4 model = glm::mat4(1.0f);
-        //model = glm::translate(model, lightPos);
-        //simpleShader.SetMat4("model", model);
-        //glDrawArrays(GL_TRIANGLES, 0, 36);
         for (int i = 0; i < pointLights.size(); i++)
         {
-            simpleShader.SetVec3("vColor", glm::vec3((float)pointLights[i].bOn));
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, pointLights[i].m_vPos);
-            model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
-            simpleShader.SetMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+            pointLights[i].Draw(simpleShader);
         }
         glBindVertexArray(0);
     }

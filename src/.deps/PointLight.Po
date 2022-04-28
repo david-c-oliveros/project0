@@ -245,7 +245,11 @@ src/PointLight.o: src/PointLight.cpp /usr/include/stdc-predef.h \
  include/glm/glm/gtc/matrix_transform.hpp \
  include/glm/glm/gtc/../gtc/constants.hpp \
  include/glm/glm/gtc/../gtc/constants.inl \
- include/glm/glm/gtc/matrix_transform.inl \
+ include/glm/glm/gtc/matrix_transform.inl include/glm/glm/gtc/random.hpp \
+ include/glm/glm/gtc/random.inl /usr/include/c++/11.2.0/ctime \
+ /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h \
  include/glm/glm/gtx/string_cast.hpp \
  include/glm/glm/gtx/../gtc/type_precision.hpp \
  include/glm/glm/gtx/../gtc/../gtc/quaternion.hpp \
@@ -285,9 +289,7 @@ src/PointLight.o: src/PointLight.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/gthr-default.h \
  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
  /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
- /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
- /usr/include/bits/types/struct_tm.h \
- /usr/include/bits/types/struct_itimerspec.h /usr/include/bits/setjmp.h \
+ /usr/include/bits/setjmp.h \
  /usr/include/bits/types/struct___jmp_buf_tag.h \
  /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/atomic_word.h \
  /usr/include/sys/single_threaded.h \
@@ -641,6 +643,14 @@ include/glm/glm/gtc/matrix_transform.hpp:
 include/glm/glm/gtc/../gtc/constants.hpp:
 include/glm/glm/gtc/../gtc/constants.inl:
 include/glm/glm/gtc/matrix_transform.inl:
+include/glm/glm/gtc/random.hpp:
+include/glm/glm/gtc/random.inl:
+/usr/include/c++/11.2.0/ctime:
+/usr/include/time.h:
+/usr/include/bits/time.h:
+/usr/include/bits/timex.h:
+/usr/include/bits/types/struct_tm.h:
+/usr/include/bits/types/struct_itimerspec.h:
 include/glm/glm/gtx/string_cast.hpp:
 include/glm/glm/gtx/../gtc/type_precision.hpp:
 include/glm/glm/gtx/../gtc/../gtc/quaternion.hpp:
@@ -692,11 +702,6 @@ include/glm/glm/gtx/../gtx/dual_quaternion.inl:
 /usr/include/bits/sched.h:
 /usr/include/bits/types/struct_sched_param.h:
 /usr/include/bits/cpu-set.h:
-/usr/include/time.h:
-/usr/include/bits/time.h:
-/usr/include/bits/timex.h:
-/usr/include/bits/types/struct_tm.h:
-/usr/include/bits/types/struct_itimerspec.h:
 /usr/include/bits/setjmp.h:
 /usr/include/bits/types/struct___jmp_buf_tag.h:
 /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/atomic_word.h:
