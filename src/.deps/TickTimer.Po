@@ -1,0 +1,4 @@
+src/TickTimer.o: src/TickTimer.cpp /usr/include/stdc-predef.h \
+ src/TickTimer.h
+/usr/include/stdc-predef.h:
+src/TickTimer.h:

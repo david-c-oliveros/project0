@@ -17,8 +17,8 @@ float bFirstMouse = true;
 float lastX = SCR_WIDTH / 2;
 float lastY = SCR_HEIGHT / 2;
 
-float fTorchLevel = 1.0f;
-glm::vec3 vTorchColor = glm::vec3(1.0f, 1.0f, 1.0f);
+float fTorchLevel = 8.0f;
+glm::vec3 vTorchColor = glm::vec3(fTorchLevel);
 
 bool bShowLights = true;
 bool bFlashlight = false;
@@ -85,11 +85,11 @@ bool Game::Construct()
 void Game::Create()
 {
     iCreateCount++;
-    /****************************************************/
-    /****************************************************/
-    /*                       Cube                       */  
-    /****************************************************/
-    /****************************************************/
+    /*****************************************************************/
+    /*****************************************************************/
+    /*                       Build Environment                       */  
+    /*****************************************************************/
+    /*****************************************************************/
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -134,8 +134,11 @@ void Game::Create()
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
+    /*****************************/
+    /*        Load Models        */
+    /*****************************/
     cCube = std::make_unique<Model>("res/models/cube_scifi/obj/Cube.obj");
-    cEnv = std::make_unique<Model>("res/models/env_v01/game_env_v01.obj");
+    cEnv = std::make_unique<Model>("res/models/env_v01/game_env_v02.obj");
     cScene.Create(std::move(cEnv), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 
 
@@ -167,16 +170,18 @@ void Game::Create()
     /*******************************************************/
     shader.Create("shaders/vLight.shader", "shaders/fLight.shader");
     simpleShader.Create("shaders/vSimple.shader", "shaders/fSimple.shader");
+    simpleShader.Use();
+    simpleShader.SetVec3("color", glm::vec3(1.0f, 1.0f, 1.0f));
     shader.Use();
     stbi_set_flip_vertically_on_load(true);
 
 
 
-    /*********************************************************/
-    /*********************************************************/
-    /*                       Lighting                        */  
-    /*********************************************************/
-    /*********************************************************/
+    /*******************************************************/
+    /*******************************************************/
+    /*                       Lights                        */  
+    /*******************************************************/
+    /*******************************************************/
     //Light dirLight = Light(DIR_LIGHT, glm::vec3(-0.2f, -1.0f, -0.3f));
     glm::vec3 lightPos =  glm::vec3(-0.2f, -1.0f, -0.3f);
     shader.SetVec3("dirLight.direction", lightPos);
@@ -186,8 +191,8 @@ void Game::Create()
 
     float fLightSepDist = 4.0f;
     glm::vec3 amb  = glm::vec3(0.0f);
-    glm::vec3 diff = glm::vec3(2.0f);
-    glm::vec3 spec = glm::vec3(2.0f);
+    glm::vec3 diff = glm::vec3(0.1f);
+    glm::vec3 spec = glm::vec3(1.0f);
     for (int i = 0; i < 16; i++)
     {
         pointLights.push_back(PointLight(i, glm::vec3(-0.22, 3.3f, -36.5 + (i * fLightSepDist)), amb, diff, spec));
@@ -196,7 +201,7 @@ void Game::Create()
     for (int i = 0; i < pointLights.size(); i++)
     {
         pointLights[i].SetAllUniforms(shader);
-        pointLights[i].SetDiffuse(shader, glm::vec3(0.1f, 0.1f, 0.1f));
+        pointLights[i].ToggleEffects();
     }
 
     spotLights.push_back(SpotLight(0, camera.Position, camera.Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
@@ -230,6 +235,11 @@ void Game::Start()
 void Game::Update(float fDeltaTime)
 {
     fCurrentFrame = static_cast<float>(glfwGetTime());
+
+    for (int i = 0; i < pointLights.size(); i++)
+    {
+        pointLights[i].Update(shader);
+    }
 
     processInput(window);
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
@@ -290,7 +300,7 @@ void Game::Update(float fDeltaTime)
         //glDrawArrays(GL_TRIANGLES, 0, 36);
         for (int i = 0; i < pointLights.size(); i++)
         {
-            simpleShader.SetVec3("vColor", glm::vec3(1.0f, 1.0f, 1.0f));
+            simpleShader.SetVec3("vColor", glm::vec3((float)pointLights[i].bOn));
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, pointLights[i].m_vPos);
             model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
@@ -357,17 +367,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if (key == GLFW_KEY_UP)
     {
-        fTorchLevel += 0.1f;
+        fTorchLevel += 0.2f;
         vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
-        if (fTorchLevel > 8.0f)
+        if (fTorchLevel > 16.0f)
         {
-            fTorchLevel = 8.0f;
+            fTorchLevel = 16.0f;
             vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
         }
     }
     if (key == GLFW_KEY_DOWN)
     {
-        fTorchLevel -= 0.1f;
+        fTorchLevel -= 0.2f;
         vTorchColor = fTorchLevel * glm::vec3(1.0f, 1.0f, 1.0f);
         if (fTorchLevel < 0.0f)
         {

@@ -4,8 +4,10 @@
 PointLight::PointLight(int uIndex, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse,
                        glm::vec3 specular, float constant, float linear, float quadratic)
     : iUniformIndex(uIndex), m_vPos(position), m_vAmbient(ambient), m_vDiffuse(diffuse),
-      m_vSpecular(specular), m_fConstant(constant), m_fLinear(linear), m_fQuadratic(quadratic)
+      m_vSpecular(specular), m_fConstant(constant), m_fLinear(linear), m_fQuadratic(quadratic),
+      m_vLightColor(diffuse), m_bEffects(false)
 {
+    vCol = m_vLightColor;
 }
 
 
@@ -64,4 +66,41 @@ void PointLight::SetAllUniforms(Shader &shader)
     shader.SetFloat("pointLights[" + i + "].constant", m_fConstant);
     shader.SetFloat("pointLights[" + i + "].linear", m_fLinear);
     shader.SetFloat("pointLights[" + i + "].quadratic", m_fQuadratic);
+}
+
+
+void PointLight::ToggleEffects()
+{
+    m_bEffects = !m_bEffects;
+    if (m_bEffects)
+        cFlickerTimer.Start();
+    else
+        cFlickerTimer.Reset();
+}
+
+
+void PointLight::Update(Shader &shader)
+{
+    if (m_bEffects)
+        Flicker(shader);
+}
+
+
+void PointLight::Flicker(Shader &shader)
+{
+    shader.Use();
+    if (cFlickerTimer.Check())
+    {
+        bOn = !bOn;
+        vCol = (float)bOn * m_vLightColor;
+        glm::vec3 vSpec = 10.0f * vCol;
+        SetDiffuse(shader, vCol);
+        SetSpecular(shader, vSpec);
+        cFlickerTimer.Reset();
+        cFlickerTimer.Start();
+    }
+    else
+    {
+        cFlickerTimer.Update();
+    }
 }

@@ -112,7 +112,8 @@ am_app_OBJECTS = $(top_builddir)/src/main.$(OBJEXT) \
 	$(top_builddir)/src/Model.$(OBJEXT) \
 	$(top_builddir)/src/Object.$(OBJEXT) \
 	$(top_builddir)/src/PointLight.$(OBJEXT) \
-	$(top_builddir)/src/SpotLight.$(OBJEXT)
+	$(top_builddir)/src/SpotLight.$(OBJEXT) \
+	$(top_builddir)/src/TickTimer.$(OBJEXT)
 app_OBJECTS = $(am_app_OBJECTS)
 app_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -138,6 +139,7 @@ am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
 	$(top_builddir)/src/$(DEPDIR)/PointLight.Po \
 	$(top_builddir)/src/$(DEPDIR)/Shader.Po \
 	$(top_builddir)/src/$(DEPDIR)/SpotLight.Po \
+	$(top_builddir)/src/$(DEPDIR)/TickTimer.Po \
 	$(top_builddir)/src/$(DEPDIR)/main.Po \
 	$(top_builddir)/src/$(DEPDIR)/stb_image.Po
 am__mv = mv -f
@@ -308,9 +310,10 @@ app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/Model.cpp \
 			  $(top_srcdir)/src/Object.cpp \
 			  $(top_srcdir)/src/PointLight.cpp \
-			  $(top_srcdir)/src/SpotLight.cpp
+			  $(top_srcdir)/src/SpotLight.cpp \
+			  $(top_srcdir)/src/TickTimer.cpp
 
-AM_CXXFLAGS = @gllibs_CFLAGS@ -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
+AM_CXXFLAGS = @gllibs_CFLAGS@ -Wfatal-errors -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
 AM_LDFLAGS = @gllibs_LIBS@ -lm -ldl -lassimp
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -443,6 +446,9 @@ $(top_builddir)/src/PointLight.$(OBJEXT):  \
 $(top_builddir)/src/SpotLight.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/TickTimer.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 
 app$(EXEEXT): $(app_OBJECTS) $(app_DEPENDENCIES) $(EXTRA_app_DEPENDENCIES) 
 	@rm -f app$(EXEEXT)
@@ -463,6 +469,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/PointLight.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Shader.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/SpotLight.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/TickTimer.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/stb_image.Po@am__quote@ # am--include-marker
 
@@ -771,6 +778,7 @@ distclean: distclean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/SpotLight.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/TickTimer.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
 	-rm -f Makefile
@@ -828,6 +836,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/SpotLight.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/TickTimer.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
 	-rm -f Makefile

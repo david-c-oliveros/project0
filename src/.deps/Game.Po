@@ -410,7 +410,7 @@ src/Game.o: src/Game.cpp /usr/include/stdc-predef.h src/Game.h \
  include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
  include/glm/glm/gtx/../gtx/dual_quaternion.inl \
  include/glm/glm/gtx/string_cast.inl /usr/include/c++/11.2.0/cstdarg \
- src/SpotLight.h
+ src/TickTimer.h src/SpotLight.h
 /usr/include/stdc-predef.h:
 src/Game.h:
 /usr/include/c++/11.2.0/iostream:
@@ -937,4 +937,5 @@ include/glm/glm/gtx/../gtx/dual_quaternion.hpp:
 include/glm/glm/gtx/../gtx/dual_quaternion.inl:
 include/glm/glm/gtx/string_cast.inl:
 /usr/include/c++/11.2.0/cstdarg:
+src/TickTimer.h:
 src/SpotLight.h:

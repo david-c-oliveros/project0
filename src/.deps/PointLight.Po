@@ -344,7 +344,7 @@ src/PointLight.o: src/PointLight.cpp /usr/include/stdc-predef.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h \
  include/glm/glm/gtc/type_ptr.hpp /usr/include/c++/11.2.0/cstring \
  /usr/include/string.h /usr/include/strings.h \
- include/glm/glm/gtc/type_ptr.inl
+ include/glm/glm/gtc/type_ptr.inl src/TickTimer.h
 /usr/include/stdc-predef.h:
 src/PointLight.h:
 include/glm/glm/glm.hpp:
@@ -774,3 +774,4 @@ include/glm/glm/gtc/type_ptr.hpp:
 /usr/include/string.h:
 /usr/include/strings.h:
 include/glm/glm/gtc/type_ptr.inl:
+src/TickTimer.h:

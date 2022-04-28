@@ -8,6 +8,7 @@ app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/Model.cpp \
 			  $(top_srcdir)/src/Object.cpp \
 			  $(top_srcdir)/src/PointLight.cpp \
-			  $(top_srcdir)/src/SpotLight.cpp
-AM_CXXFLAGS = @gllibs_CFLAGS@ -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
+			  $(top_srcdir)/src/SpotLight.cpp \
+			  $(top_srcdir)/src/TickTimer.cpp
+AM_CXXFLAGS = @gllibs_CFLAGS@ -Wfatal-errors -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
 AM_LDFLAGS = @gllibs_LIBS@ -lm -ldl -lassimp
