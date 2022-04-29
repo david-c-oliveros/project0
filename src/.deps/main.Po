@@ -363,7 +363,7 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h src/Game.h \
  /usr/include/c++/11.2.0/bits/sstream.tcc src/Camera.h \
  /usr/include/c++/11.2.0/vector /usr/include/c++/11.2.0/bits/stl_vector.h \
  /usr/include/c++/11.2.0/bits/stl_bvector.h \
- /usr/include/c++/11.2.0/bits/vector.tcc src/Model.h \
+ /usr/include/c++/11.2.0/bits/vector.tcc src/BoxCollider.h src/Model.h \
  /usr/include/c++/11.2.0/map /usr/include/c++/11.2.0/bits/stl_tree.h \
  /usr/include/c++/11.2.0/bits/node_handle.h \
  /usr/include/c++/11.2.0/bits/stl_map.h \
@@ -410,7 +410,22 @@ src/main.o: src/main.cpp /usr/include/stdc-predef.h src/Game.h \
  include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
  include/glm/glm/gtx/../gtx/dual_quaternion.inl \
  include/glm/glm/gtx/string_cast.inl /usr/include/c++/11.2.0/cstdarg \
- src/TickTimer.h src/SpotLight.h
+ src/TickTimer.h src/SpotLight.h src/Text.h \
+ /usr/include/freetype2/ft2build.h \
+ /usr/include/freetype2/freetype/config/ftheader.h \
+ /usr/include/freetype2/freetype/freetype.h \
+ /usr/include/freetype2/freetype/config/ftconfig.h \
+ /usr/include/freetype2/freetype/config/ftoption.h \
+ /usr/include/freetype2/freetype/config/ftstdlib.h /usr/include/setjmp.h \
+ /usr/include/freetype2/freetype/config/integer-types.h \
+ /usr/include/freetype2/freetype/config/public-macros.h \
+ /usr/include/freetype2/freetype/config/mac-support.h \
+ /usr/include/freetype2/freetype/fttypes.h \
+ /usr/include/freetype2/freetype/ftsystem.h \
+ /usr/include/freetype2/freetype/ftimage.h \
+ /usr/include/freetype2/freetype/fterrors.h \
+ /usr/include/freetype2/freetype/ftmoderr.h \
+ /usr/include/freetype2/freetype/fterrdef.h
 /usr/include/stdc-predef.h:
 src/Game.h:
 /usr/include/c++/11.2.0/iostream:
@@ -866,6 +881,7 @@ src/Camera.h:
 /usr/include/c++/11.2.0/bits/stl_vector.h:
 /usr/include/c++/11.2.0/bits/stl_bvector.h:
 /usr/include/c++/11.2.0/bits/vector.tcc:
+src/BoxCollider.h:
 src/Model.h:
 /usr/include/c++/11.2.0/map:
 /usr/include/c++/11.2.0/bits/stl_tree.h:
@@ -939,3 +955,20 @@ include/glm/glm/gtx/string_cast.inl:
 /usr/include/c++/11.2.0/cstdarg:
 src/TickTimer.h:
 src/SpotLight.h:
+src/Text.h:
+/usr/include/freetype2/ft2build.h:
+/usr/include/freetype2/freetype/config/ftheader.h:
+/usr/include/freetype2/freetype/freetype.h:
+/usr/include/freetype2/freetype/config/ftconfig.h:
+/usr/include/freetype2/freetype/config/ftoption.h:
+/usr/include/freetype2/freetype/config/ftstdlib.h:
+/usr/include/setjmp.h:
+/usr/include/freetype2/freetype/config/integer-types.h:
+/usr/include/freetype2/freetype/config/public-macros.h:
+/usr/include/freetype2/freetype/config/mac-support.h:
+/usr/include/freetype2/freetype/fttypes.h:
+/usr/include/freetype2/freetype/ftsystem.h:
+/usr/include/freetype2/freetype/ftimage.h:
+/usr/include/freetype2/freetype/fterrors.h:
+/usr/include/freetype2/freetype/ftmoderr.h:
+/usr/include/freetype2/freetype/fterrdef.h:

@@ -63,6 +63,8 @@ bool Game::Construct()
         return false;
     }
 
+    pText = std::make_unique<Text>(SCR_WIDTH, SCR_HEIGHT);
+
 
 
     /**********************************************************/
@@ -72,6 +74,8 @@ bool Game::Construct()
     /**********************************************************/
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetKeyCallback(window, key_callback);
@@ -84,82 +88,25 @@ bool Game::Construct()
 
 void Game::Create()
 {
-    iCreateCount++;
     /*****************************************************************/
     /*****************************************************************/
     /*                       Build Environment                       */  
     /*****************************************************************/
     /*****************************************************************/
-    float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    };
-
     /*****************************/
     /*        Load Models        */
     /*****************************/
-    cCube = std::make_unique<Model>("res/models/cube_scifi/obj/Cube.obj");
-    cEnv = std::make_unique<Model>("res/models/env_v01/game_env_v02.obj");
-    cScene.Create(std::move(cEnv), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+    cContainerMesh = std::make_unique<Model>("res/models/cube_scifi/obj/Cube.obj");
+    cEnvMesh = std::make_unique<Model>("res/models/env_v01/game_env_v02.obj");
+    cCubeMesh = std::make_unique<Model>("res/models/cube.obj");
 
+    cScene.Create(std::move(cEnvMesh), glm::vec3(0.0f), 0.0f);
+    cContainer.Create(std::move(cContainerMesh), glm::vec3(0.0f), 0.0f);
+    cCube.Create(std::move(cCubeMesh), glm::vec3(0.0f), 0.0f);
 
-    /*********************************************************/
-    /*********************************************************/
-    /*                       VAO, VBO                        */  
-    /*********************************************************/
-    /*********************************************************/
-    glGenVertexArrays(1, &cubeVAO);
-    glGenBuffers(1, &cubeVBO);
-
-    glBindVertexArray(cubeVAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    //cCollider = std::make_unique<BoxCollider>(glm::vec3(0.0f), glm::vec3(1.0f));
+    cCollider = BoxCollider(glm::vec3(0.0f), glm::vec3(1.0f));
+    std::cout << glm::to_string(camera.cCollider.GetPos()) << std::endl;
 
 
 
@@ -169,9 +116,14 @@ void Game::Create()
     /*******************************************************/
     /*******************************************************/
     shader.Create("shaders/vLight.shader", "shaders/fLight.shader");
+
     simpleShader.Create("shaders/vSimple.shader", "shaders/fSimple.shader");
     simpleShader.Use();
     simpleShader.SetVec3("color", glm::vec3(1.0f, 1.0f, 1.0f));
+
+    textShader.Create("shaders/vText.shader", "shaders/fText.shader");
+    textShader.SetMat4("projection", pText->projection);
+
     shader.Use();
     stbi_set_flip_vertically_on_load(true);
 
@@ -202,6 +154,9 @@ void Game::Create()
     for (int i = 0; i < pointLights.size(); i++)
     {
         pointLights[i].SetAllUniforms(shader);
+        /************************************************/
+        /*        Randomize Which Lights Flicker        */
+        /************************************************/
         if ((int)(glm::linearRand(0, 100)) % 15 == 0)
             pointLights[i].ToggleEffects();
     }
@@ -288,6 +243,9 @@ void Game::Update(float fDeltaTime)
     /******************************/
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     cScene.Draw(shader);
+    //cContainer.Draw(shader);
+    cCube.Draw(shader);
+    //colliders[0].pCube->Draw(shader);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     if (bShowLights)
@@ -295,7 +253,6 @@ void Game::Update(float fDeltaTime)
         simpleShader.Use();
         simpleShader.SetMat4("projection", projection);
         simpleShader.SetMat4("view", view);
-        glBindVertexArray(cubeVAO);
         for (int i = 0; i < pointLights.size(); i++)
         {
             pointLights[i].Draw(simpleShader);
@@ -303,23 +260,45 @@ void Game::Update(float fDeltaTime)
         glBindVertexArray(0);
     }
 
+    textShader.Use();
+    pText->RenderText(textShader, glm::to_string(camera.Position), 25.0f, 25.0f, 1.0f, glm::vec3(0.5f, 0.8f, 0.2f));
+
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
+
+
+bool Game::Collide(BoxCollider a, BoxCollider b)
+{
+    return (a.vMin.x <= b.vMax.x && a.vMax.x >= b.vMin.x) &&
+           (a.vMin.y <= b.vMax.y && a.vMax.y >= b.vMin.y) &&
+           (a.vMin.z <= b.vMax.z && a.vMax.z >= b.vMin.z);
+}
+
 
 void Game::processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, fDeltaTime, bDebug);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, fDeltaTime, bDebug);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, fDeltaTime, bDebug);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, fDeltaTime, bDebug);
+    bool bCollide = false;
+    if (Collide(camera.cCollider, cCollider))
+    {
+        bCollide = true;
+        std::cout << "Collision" << std::endl;
+    }
+
+    if (!bCollide || bDebug)
+    {
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            camera.ProcessKeyboard(FORWARD, fDeltaTime, bDebug);
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            camera.ProcessKeyboard(BACKWARD, fDeltaTime, bDebug);
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            camera.ProcessKeyboard(LEFT, fDeltaTime, bDebug);
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            camera.ProcessKeyboard(RIGHT, fDeltaTime, bDebug);
+    }
 
     if (bDebug)
     {

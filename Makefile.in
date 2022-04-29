@@ -113,7 +113,9 @@ am_app_OBJECTS = $(top_builddir)/src/main.$(OBJEXT) \
 	$(top_builddir)/src/Object.$(OBJEXT) \
 	$(top_builddir)/src/PointLight.$(OBJEXT) \
 	$(top_builddir)/src/SpotLight.$(OBJEXT) \
-	$(top_builddir)/src/TickTimer.$(OBJEXT)
+	$(top_builddir)/src/TickTimer.$(OBJEXT) \
+	$(top_builddir)/src/BoxCollider.$(OBJEXT) \
+	$(top_builddir)/src/Text.$(OBJEXT)
 app_OBJECTS = $(am_app_OBJECTS)
 app_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -131,7 +133,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
+am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/BoxCollider.Po \
+	$(top_builddir)/src/$(DEPDIR)/Camera.Po \
 	$(top_builddir)/src/$(DEPDIR)/Game.Po \
 	$(top_builddir)/src/$(DEPDIR)/Mesh.Po \
 	$(top_builddir)/src/$(DEPDIR)/Model.Po \
@@ -139,6 +142,7 @@ am__depfiles_remade = $(top_builddir)/src/$(DEPDIR)/Camera.Po \
 	$(top_builddir)/src/$(DEPDIR)/PointLight.Po \
 	$(top_builddir)/src/$(DEPDIR)/Shader.Po \
 	$(top_builddir)/src/$(DEPDIR)/SpotLight.Po \
+	$(top_builddir)/src/$(DEPDIR)/Text.Po \
 	$(top_builddir)/src/$(DEPDIR)/TickTimer.Po \
 	$(top_builddir)/src/$(DEPDIR)/main.Po \
 	$(top_builddir)/src/$(DEPDIR)/stb_image.Po
@@ -182,8 +186,8 @@ am__define_uniq_tagged_files = \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
 AM_RECURSIVE_TARGETS = cscope
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
-	depcomp install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
+	README.md compile depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -311,10 +315,14 @@ app_SOURCES = $(top_srcdir)/src/main.cpp \
 			  $(top_srcdir)/src/Object.cpp \
 			  $(top_srcdir)/src/PointLight.cpp \
 			  $(top_srcdir)/src/SpotLight.cpp \
-			  $(top_srcdir)/src/TickTimer.cpp
+			  $(top_srcdir)/src/TickTimer.cpp \
+			  $(top_srcdir)/src/BoxCollider.cpp \
+			  $(top_srcdir)/src/Text.cpp
 
-AM_CXXFLAGS = @gllibs_CFLAGS@ -Wfatal-errors -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm
-AM_LDFLAGS = @gllibs_LIBS@ -lm -ldl -lassimp
+AM_CXXFLAGS = @gllibs_CFLAGS@ -Wfatal-errors -Iassimp/include -Lassimp/bin -Iinclude -Iinclude/glm \
+			  -I/usr/include/freetype2 -I/usr/include/freetype2/freetype
+
+AM_LDFLAGS = @gllibs_LIBS@ -lm -ldl -lassimp -lfreetype
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -449,6 +457,12 @@ $(top_builddir)/src/SpotLight.$(OBJEXT):  \
 $(top_builddir)/src/TickTimer.$(OBJEXT):  \
 	$(top_builddir)/src/$(am__dirstamp) \
 	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/BoxCollider.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/Text.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
 
 app$(EXEEXT): $(app_OBJECTS) $(app_DEPENDENCIES) $(EXTRA_app_DEPENDENCIES) 
 	@rm -f app$(EXEEXT)
@@ -461,6 +475,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/BoxCollider.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Camera.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Game.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Mesh.Po@am__quote@ # am--include-marker
@@ -469,6 +484,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/PointLight.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Shader.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/SpotLight.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/Text.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/TickTimer.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/stb_image.Po@am__quote@ # am--include-marker
@@ -770,7 +786,8 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
+		-rm -f $(top_builddir)/src/$(DEPDIR)/BoxCollider.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Game.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Mesh.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Model.Po
@@ -778,6 +795,7 @@ distclean: distclean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/SpotLight.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Text.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/TickTimer.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po
@@ -828,7 +846,8 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
+		-rm -f $(top_builddir)/src/$(DEPDIR)/BoxCollider.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Camera.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Game.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Mesh.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Model.Po
@@ -836,6 +855,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/PointLight.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/Shader.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/SpotLight.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/Text.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/TickTimer.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/stb_image.Po

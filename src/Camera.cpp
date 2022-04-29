@@ -3,20 +3,24 @@
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(WALK_SPEED), SprintSpeed(SPRINT_SPEED),
-      MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(true)
+      MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(true),
+      cCollider(BoxCollider(position, glm::vec3(1.0f)))
 {
+    cCollider = BoxCollider(position, glm::vec3(1.0f));
     Position = position;
     Floor = position.y;
     WorldUp = up;
     Yaw = yaw;
     Pitch = pitch;
+    //pCollider = std::make_unique<BoxCollider>(Position, glm::vec3(1.0f));
     updateCameraVectors();
 }
 
 
 Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
     : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(WALK_SPEED), SprintSpeed(SPRINT_SPEED),
-      MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(true)
+      MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(true),
+      cCollider(BoxCollider(glm::vec3(posX, posY, posZ), glm::vec3(1.0f)))
 {
     Position = glm::vec3(posX, posY, posZ);
     Floor = posY;
@@ -40,13 +44,14 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bD
         velocity *= 4;
 
     if (direction == FORWARD)
-        Position += Front * velocity;
+        UpdatePos(Front * velocity);
     if (direction == BACKWARD)
-        Position -= Front * velocity;
+        UpdatePos(-(Front * velocity));
     if (direction == LEFT)
-        Position -= Right * velocity;
+        UpdatePos(-(Right * velocity));
     if (direction == RIGHT)
-        Position += Right * velocity;
+        UpdatePos(Right * velocity);
+
     if (direction == UP)
         Position += WorldUp * velocity;
     if (direction == DOWN)
@@ -98,6 +103,13 @@ void Camera::updateCameraVectors()
 
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up    = glm::normalize(glm::cross(Right, Front));
+}
+
+
+void Camera::UpdatePos(glm::vec3 newPos)
+{
+    Position += newPos;
+    cCollider.UpdatePos(Position);
 }
 
 
