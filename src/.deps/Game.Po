@@ -149,7 +149,24 @@ src/Game.o: src/Game.cpp /usr/include/stdc-predef.h src/Game.h \
  /usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11.2.0/backward/auto_ptr.h \
  /usr/include/c++/11.2.0/pstl/glue_memory_defs.h \
- /usr/include/c++/11.2.0/pstl/execution_defs.h /usr/include/GL/glew.h \
+ /usr/include/c++/11.2.0/pstl/execution_defs.h \
+ /usr/include/c++/11.2.0/algorithm \
+ /usr/include/c++/11.2.0/bits/stl_algo.h \
+ /usr/include/c++/11.2.0/bits/algorithmfwd.h \
+ /usr/include/c++/11.2.0/bits/stl_heap.h \
+ /usr/include/c++/11.2.0/bits/uniform_int_dist.h \
+ /usr/include/c++/11.2.0/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/11.2.0/functional \
+ /usr/include/c++/11.2.0/bits/std_function.h \
+ /usr/include/c++/11.2.0/unordered_map \
+ /usr/include/c++/11.2.0/bits/hashtable.h \
+ /usr/include/c++/11.2.0/bits/hashtable_policy.h \
+ /usr/include/c++/11.2.0/bits/node_handle.h \
+ /usr/include/c++/11.2.0/bits/unordered_map.h \
+ /usr/include/c++/11.2.0/bits/erase_if.h /usr/include/c++/11.2.0/vector \
+ /usr/include/c++/11.2.0/bits/stl_vector.h \
+ /usr/include/c++/11.2.0/bits/stl_bvector.h \
+ /usr/include/c++/11.2.0/bits/vector.tcc /usr/include/GL/glew.h \
  /usr/include/c++/11.2.0/cstddef /usr/include/GL/glu.h \
  /usr/include/GL/gl.h /usr/local/include/GLFW/glfw3.h include/stb_image.h \
  /usr/include/c++/11.2.0/stdlib.h include/glm/glm/glm.hpp \
@@ -361,32 +378,25 @@ src/Game.o: src/Game.cpp /usr/include/stdc-predef.h src/Game.h \
  /usr/include/c++/11.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
  /usr/include/c++/11.2.0/bits/fstream.tcc /usr/include/c++/11.2.0/sstream \
  /usr/include/c++/11.2.0/bits/sstream.tcc src/Camera.h \
- /usr/include/c++/11.2.0/vector /usr/include/c++/11.2.0/bits/stl_vector.h \
- /usr/include/c++/11.2.0/bits/stl_bvector.h \
- /usr/include/c++/11.2.0/bits/vector.tcc src/BoxCollider.h src/Model.h \
- /usr/include/c++/11.2.0/map /usr/include/c++/11.2.0/bits/stl_tree.h \
- /usr/include/c++/11.2.0/bits/node_handle.h \
+ include/glm/glm/gtx/string_cast.hpp \
+ include/glm/glm/gtx/../gtc/type_precision.hpp \
+ include/glm/glm/gtx/../gtc/../gtc/vec1.hpp \
+ include/glm/glm/gtx/../gtc/../gtc/vec1.inl \
+ include/glm/glm/gtx/../gtc/type_precision.inl \
+ include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
+ include/glm/glm/gtx/../gtx/dual_quaternion.inl \
+ include/glm/glm/gtx/string_cast.inl /usr/include/c++/11.2.0/cstdarg \
+ src/BoxCollider.h src/Model.h /usr/include/c++/11.2.0/map \
+ /usr/include/c++/11.2.0/bits/stl_tree.h \
  /usr/include/c++/11.2.0/bits/stl_map.h \
  /usr/include/c++/11.2.0/bits/stl_multimap.h \
- /usr/include/c++/11.2.0/bits/erase_if.h /usr/include/assimp/Importer.hpp \
- /usr/include/assimp/types.h /usr/include/assimp/defs.h \
- /usr/include/assimp/config.h /usr/include/assimp/vector2.h \
- /usr/include/assimp/vector3.h /usr/include/assimp/color4.h \
- /usr/include/assimp/matrix3x3.h /usr/include/assimp/matrix4x4.h \
- /usr/include/assimp/quaternion.h /usr/include/assimp/vector2.inl \
- /usr/include/assimp/vector3.inl /usr/include/assimp/color4.inl \
- /usr/include/assimp/matrix3x3.inl /usr/include/c++/11.2.0/algorithm \
- /usr/include/c++/11.2.0/bits/stl_algo.h \
- /usr/include/c++/11.2.0/bits/algorithmfwd.h \
- /usr/include/c++/11.2.0/bits/stl_heap.h \
- /usr/include/c++/11.2.0/bits/uniform_int_dist.h \
- /usr/include/c++/11.2.0/pstl/glue_algorithm_defs.h \
- /usr/include/c++/11.2.0/functional \
- /usr/include/c++/11.2.0/bits/std_function.h \
- /usr/include/c++/11.2.0/unordered_map \
- /usr/include/c++/11.2.0/bits/hashtable.h \
- /usr/include/c++/11.2.0/bits/hashtable_policy.h \
- /usr/include/c++/11.2.0/bits/unordered_map.h \
+ /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
+ /usr/include/assimp/defs.h /usr/include/assimp/config.h \
+ /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
+ /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
+ /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
+ /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
+ /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
  /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
  /usr/include/assimp/quaternion.inl /usr/include/assimp/BaseImporter.h \
  /usr/include/assimp/Exceptional.h /usr/include/assimp/DefaultIOStream.h \
@@ -401,17 +411,8 @@ src/Game.o: src/Game.cpp /usr/include/stdc-predef.h src/Game.h \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
- src/Mesh.h src/Object.h src/PointLight.h \
- include/glm/glm/gtx/string_cast.hpp \
- include/glm/glm/gtx/../gtc/type_precision.hpp \
- include/glm/glm/gtx/../gtc/../gtc/vec1.hpp \
- include/glm/glm/gtx/../gtc/../gtc/vec1.inl \
- include/glm/glm/gtx/../gtc/type_precision.inl \
- include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
- include/glm/glm/gtx/../gtx/dual_quaternion.inl \
- include/glm/glm/gtx/string_cast.inl /usr/include/c++/11.2.0/cstdarg \
- src/TickTimer.h src/SpotLight.h src/Text.h \
- /usr/include/freetype2/ft2build.h \
+ src/Mesh.h src/Object.h src/PointLight.h src/TickTimer.h src/SpotLight.h \
+ src/Text.h /usr/include/freetype2/ft2build.h \
  /usr/include/freetype2/freetype/config/ftheader.h \
  /usr/include/freetype2/freetype/freetype.h \
  /usr/include/freetype2/freetype/config/ftconfig.h \
@@ -633,6 +634,24 @@ src/Game.h:
 /usr/include/c++/11.2.0/backward/auto_ptr.h:
 /usr/include/c++/11.2.0/pstl/glue_memory_defs.h:
 /usr/include/c++/11.2.0/pstl/execution_defs.h:
+/usr/include/c++/11.2.0/algorithm:
+/usr/include/c++/11.2.0/bits/stl_algo.h:
+/usr/include/c++/11.2.0/bits/algorithmfwd.h:
+/usr/include/c++/11.2.0/bits/stl_heap.h:
+/usr/include/c++/11.2.0/bits/uniform_int_dist.h:
+/usr/include/c++/11.2.0/pstl/glue_algorithm_defs.h:
+/usr/include/c++/11.2.0/functional:
+/usr/include/c++/11.2.0/bits/std_function.h:
+/usr/include/c++/11.2.0/unordered_map:
+/usr/include/c++/11.2.0/bits/hashtable.h:
+/usr/include/c++/11.2.0/bits/hashtable_policy.h:
+/usr/include/c++/11.2.0/bits/node_handle.h:
+/usr/include/c++/11.2.0/bits/unordered_map.h:
+/usr/include/c++/11.2.0/bits/erase_if.h:
+/usr/include/c++/11.2.0/vector:
+/usr/include/c++/11.2.0/bits/stl_vector.h:
+/usr/include/c++/11.2.0/bits/stl_bvector.h:
+/usr/include/c++/11.2.0/bits/vector.tcc:
 /usr/include/GL/glew.h:
 /usr/include/c++/11.2.0/cstddef:
 /usr/include/GL/glu.h:
@@ -877,18 +896,21 @@ src/Shader.h:
 /usr/include/c++/11.2.0/sstream:
 /usr/include/c++/11.2.0/bits/sstream.tcc:
 src/Camera.h:
-/usr/include/c++/11.2.0/vector:
-/usr/include/c++/11.2.0/bits/stl_vector.h:
-/usr/include/c++/11.2.0/bits/stl_bvector.h:
-/usr/include/c++/11.2.0/bits/vector.tcc:
+include/glm/glm/gtx/string_cast.hpp:
+include/glm/glm/gtx/../gtc/type_precision.hpp:
+include/glm/glm/gtx/../gtc/../gtc/vec1.hpp:
+include/glm/glm/gtx/../gtc/../gtc/vec1.inl:
+include/glm/glm/gtx/../gtc/type_precision.inl:
+include/glm/glm/gtx/../gtx/dual_quaternion.hpp:
+include/glm/glm/gtx/../gtx/dual_quaternion.inl:
+include/glm/glm/gtx/string_cast.inl:
+/usr/include/c++/11.2.0/cstdarg:
 src/BoxCollider.h:
 src/Model.h:
 /usr/include/c++/11.2.0/map:
 /usr/include/c++/11.2.0/bits/stl_tree.h:
-/usr/include/c++/11.2.0/bits/node_handle.h:
 /usr/include/c++/11.2.0/bits/stl_map.h:
 /usr/include/c++/11.2.0/bits/stl_multimap.h:
-/usr/include/c++/11.2.0/bits/erase_if.h:
 /usr/include/assimp/Importer.hpp:
 /usr/include/assimp/types.h:
 /usr/include/assimp/defs.h:
@@ -903,18 +925,6 @@ src/Model.h:
 /usr/include/assimp/vector3.inl:
 /usr/include/assimp/color4.inl:
 /usr/include/assimp/matrix3x3.inl:
-/usr/include/c++/11.2.0/algorithm:
-/usr/include/c++/11.2.0/bits/stl_algo.h:
-/usr/include/c++/11.2.0/bits/algorithmfwd.h:
-/usr/include/c++/11.2.0/bits/stl_heap.h:
-/usr/include/c++/11.2.0/bits/uniform_int_dist.h:
-/usr/include/c++/11.2.0/pstl/glue_algorithm_defs.h:
-/usr/include/c++/11.2.0/functional:
-/usr/include/c++/11.2.0/bits/std_function.h:
-/usr/include/c++/11.2.0/unordered_map:
-/usr/include/c++/11.2.0/bits/hashtable.h:
-/usr/include/c++/11.2.0/bits/hashtable_policy.h:
-/usr/include/c++/11.2.0/bits/unordered_map.h:
 /usr/include/assimp/matrix4x4.inl:
 /usr/include/assimp/MathFunctions.h:
 /usr/include/assimp/quaternion.inl:
@@ -944,15 +954,6 @@ src/Model.h:
 src/Mesh.h:
 src/Object.h:
 src/PointLight.h:
-include/glm/glm/gtx/string_cast.hpp:
-include/glm/glm/gtx/../gtc/type_precision.hpp:
-include/glm/glm/gtx/../gtc/../gtc/vec1.hpp:
-include/glm/glm/gtx/../gtc/../gtc/vec1.inl:
-include/glm/glm/gtx/../gtc/type_precision.inl:
-include/glm/glm/gtx/../gtx/dual_quaternion.hpp:
-include/glm/glm/gtx/../gtx/dual_quaternion.inl:
-include/glm/glm/gtx/string_cast.inl:
-/usr/include/c++/11.2.0/cstdarg:
 src/TickTimer.h:
 src/SpotLight.h:
 src/Text.h:

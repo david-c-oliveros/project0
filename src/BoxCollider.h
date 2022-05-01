@@ -10,11 +10,9 @@
 
 class BoxCollider
 {
-    private:
-        glm::vec3 m_vOrigin;
-        glm::vec3 m_vDim;
-
     public:
+        glm::vec3 vDim;
+        glm::vec3 vOrigin;
         glm::vec3 vMin;
         glm::vec3 vMax;
 

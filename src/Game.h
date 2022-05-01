@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <memory>
+#include <algorithm>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -50,6 +52,8 @@ class Game
         Object cContainer;
         Object cCube;
 
+        glm::vec3 vPlayerDelta;
+
         std::unique_ptr<Text> pText;
 
     public:
@@ -60,7 +64,9 @@ class Game
         void Start();
         void Create();
         void Update(float fDeltaTime);
-        bool Collide(BoxCollider a, BoxCollider b);
+        bool AABBCollide(BoxCollider a, BoxCollider b);
+        glm::vec3 CalcAABBDistanceTo(BoxCollider a, BoxCollider b);
+        glm::vec3 ResolveCollisions(BoxCollider a, glm::vec3 aVel, BoxCollider b);
         void processInput(GLFWwindow* window);
 
     private:

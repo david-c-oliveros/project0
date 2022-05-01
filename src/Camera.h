@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #include <vector>
 
@@ -35,6 +36,7 @@ class Camera
 {
     public:
         glm::vec3 Position;
+        glm::vec3 Velocity;
         glm::vec3 Front;
         glm::vec3 Up;
         glm::vec3 Right;
@@ -58,12 +60,12 @@ class Camera
         Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
 
         glm::mat4 GetViewMatrix();
-        void ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bDebug);
+        void ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bDebug, bool bCollide);
         void ProcessMouseMovement(float xoffset, float yoffset, GLboolean bConstrainPitch = true);
         void ProcessMouseScroll(float yoffset);
 
         void PrintPosition();
-        void UpdatePos(glm::vec3 newPos);
+        void UpdatePosVel(glm::vec3 newPos);
 
     private:
         void updateCameraVectors();

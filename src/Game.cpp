@@ -105,8 +105,6 @@ void Game::Create()
     cCube.Create(std::move(cCubeMesh), glm::vec3(0.0f), 0.0f);
 
     //cCollider = std::make_unique<BoxCollider>(glm::vec3(0.0f), glm::vec3(1.0f));
-    cCollider = BoxCollider(glm::vec3(0.0f), glm::vec3(1.0f));
-    std::cout << glm::to_string(camera.cCollider.GetPos()) << std::endl;
 
 
 
@@ -241,12 +239,12 @@ void Game::Update(float fDeltaTime)
     /******************************/
     /*        Draw Objects        */
     /******************************/
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     cScene.Draw(shader);
     //cContainer.Draw(shader);
-    cCube.Draw(shader);
     //colliders[0].pCube->Draw(shader);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    cCube.Draw(shader);
 
     if (bShowLights)
     {
@@ -261,18 +259,121 @@ void Game::Update(float fDeltaTime)
     }
 
     textShader.Use();
-    pText->RenderText(textShader, glm::to_string(camera.Position), 25.0f, 25.0f, 1.0f, glm::vec3(0.5f, 0.8f, 0.2f));
+    pText->RenderText(textShader, "Col: " + glm::to_string(camera.cCollider.vOrigin), 25.0f, 110.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
+    pText->RenderText(textShader, "Del: " + glm::to_string(vPlayerDelta), 25.0f, 80.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
+    pText->RenderText(textShader, "Pos: " + glm::to_string(camera.Position), 25.0f, 50.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
+    pText->RenderText(textShader, "Vel: " + glm::to_string(camera.Velocity), 25.0f, 20.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
 
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
 
 
-bool Game::Collide(BoxCollider a, BoxCollider b)
+bool Game::AABBCollide(BoxCollider a, BoxCollider b)
 {
     return (a.vMin.x <= b.vMax.x && a.vMax.x >= b.vMin.x) &&
            (a.vMin.y <= b.vMax.y && a.vMax.y >= b.vMin.y) &&
            (a.vMin.z <= b.vMax.z && a.vMax.z >= b.vMin.z);
+}
+
+
+glm::vec3 Game::CalcAABBDistanceTo(BoxCollider a, BoxCollider b)
+{
+    glm::vec3 delta = glm::vec3(0.0f);
+
+    /************************/
+    /*        X Axis        */
+    /************************/
+    if (a.vOrigin.x < b.vOrigin.x)
+    {
+        delta.x = b.vOrigin.x - (a.vOrigin.x + a.vDim.x);
+    }
+    else if (a.vOrigin.x > b.vOrigin.x)
+    {
+        delta.x = a.vOrigin.x - (b.vOrigin.x + b.vDim.x);
+    }
+
+    /************************/
+    /*        Y Axis        */
+    /************************/
+    if (a.vOrigin.y < b.vOrigin.y)
+    {
+        delta.y = b.vOrigin.y - (a.vOrigin.y + a.vDim.y);
+    }
+    else if (a.vOrigin.y > b.vOrigin.y)
+    {
+        delta.y = a.vOrigin.y - (b.vOrigin.y + b.vDim.y);
+    }
+
+    /************************/
+    /*        Z Axis        */
+    /************************/
+    if (a.vOrigin.z < b.vOrigin.z)
+    {
+        delta.z = b.vOrigin.z - (a.vOrigin.z + a.vDim.z);
+    }
+    else if (a.vOrigin.z > b.vOrigin.z)
+    {
+        delta.z = a.vOrigin.z - (b.vOrigin.z + b.vDim.z);
+    }
+
+    return delta;
+}
+
+
+glm::vec3 Game::ResolveCollisions(BoxCollider a, glm::vec3 aVel, BoxCollider b)
+{
+    glm::vec3 vMoveDelta = aVel;
+    glm::vec3 vDistance = CalcAABBDistanceTo(a, b);
+    glm::vec3 vVelocity = camera.Velocity;
+    glm::vec3 vTimeToCollide;
+    vTimeToCollide.x = aVel.x != 0.0f ? abs(vDistance.x / aVel.x) : 0.0f;
+    vTimeToCollide.y = aVel.y != 0.0f ? abs(vDistance.y / aVel.y) : 0.0f;
+    vTimeToCollide.z = aVel.z != 0.0f ? abs(vDistance.z / aVel.z) : 0.0f;
+
+    float fShortestTime = 0;
+    if (aVel.x != 0.0f && aVel.y == 0.0f && aVel.z == 0.0f)
+    {
+        fShortestTime = vTimeToCollide.x;
+        vMoveDelta.x = fShortestTime * aVel.x;
+    }
+    else if (aVel.x == 0.0f && aVel.y != 0.0f && aVel.z == 0.0f)
+    {
+        fShortestTime = vTimeToCollide.y;
+        vMoveDelta.y = fShortestTime * aVel.y;
+    }
+    else if (aVel.x == 0.0f && aVel.y == 0.0f && aVel.z != 0.0f)
+    {
+        fShortestTime = vTimeToCollide.z;
+        vMoveDelta.z = fShortestTime * aVel.z;
+    }
+    else if (aVel.x != 0.0f && aVel.y != 0.0f && aVel.z == 0.0f)
+    {
+        fShortestTime = std::min(abs(vTimeToCollide.x), abs(vTimeToCollide.y));
+        vMoveDelta.x = fShortestTime * aVel.x;
+        vMoveDelta.y = fShortestTime * aVel.y;
+    }
+    else if (aVel.x != 0.0f && aVel.y == 0.0f && aVel.z != 0.0f)
+    {
+        fShortestTime = std::min(abs(vTimeToCollide.x), abs(vTimeToCollide.z));
+        vMoveDelta.x = fShortestTime * aVel.x;
+        vMoveDelta.z = fShortestTime * aVel.z;
+    }
+    else if (aVel.x == 0.0f && aVel.y != 0.0f && aVel.z != 0.0f)
+    {
+        fShortestTime = std::min(abs(vTimeToCollide.y), abs(vTimeToCollide.z));
+        vMoveDelta.y = fShortestTime * aVel.y;
+        vMoveDelta.z = fShortestTime * aVel.z;
+    }
+    else if (aVel.x != 0.0f && aVel.y != 0.0f && aVel.z != 0.0f)
+    {
+        fShortestTime = std::min(abs(vTimeToCollide.x), std::min(abs(vTimeToCollide.y), abs(vTimeToCollide.z)));
+        vMoveDelta.x = fShortestTime * aVel.x;
+        vMoveDelta.y = fShortestTime * aVel.y;
+        vMoveDelta.z = fShortestTime * aVel.z;
+    }
+
+    return vMoveDelta;
 }
 
 
@@ -282,30 +383,43 @@ void Game::processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 
     bool bCollide = false;
-    if (Collide(camera.cCollider, cCollider))
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        bCollide = true;
-        std::cout << "Collision" << std::endl;
+        camera.ProcessKeyboard(FORWARD, fDeltaTime, bDebug, bCollide);
+        vPlayerDelta = ResolveCollisions(camera.cCollider, camera.Velocity, cCollider);
+        camera.UpdatePosVel(vPlayerDelta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        camera.ProcessKeyboard(BACKWARD, fDeltaTime, bDebug, bCollide);
+        vPlayerDelta = ResolveCollisions(camera.cCollider, camera.Velocity, cCollider);
+        camera.UpdatePosVel(vPlayerDelta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        camera.ProcessKeyboard(LEFT, fDeltaTime, bDebug, bCollide);
+        vPlayerDelta = ResolveCollisions(camera.cCollider, camera.Velocity, cCollider);
+        camera.UpdatePosVel(vPlayerDelta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        camera.ProcessKeyboard(RIGHT, fDeltaTime, bDebug, bCollide);
+        vPlayerDelta = ResolveCollisions(camera.cCollider, camera.Velocity, cCollider);
+        camera.UpdatePosVel(vPlayerDelta);
     }
 
-    if (!bCollide || bDebug)
-    {
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, fDeltaTime, bDebug);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARD, fDeltaTime, bDebug);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, fDeltaTime, bDebug);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, fDeltaTime, bDebug);
-    }
+    /************************************/
+    /*        Resolve Collisions        */
+    /************************************/
+
 
     if (bDebug)
     {
         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-            camera.ProcessKeyboard(UP, fDeltaTime, bDebug);
+            camera.ProcessKeyboard(UP, fDeltaTime, bDebug, false);
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-            camera.ProcessKeyboard(DOWN, fDeltaTime, bDebug);
+            camera.ProcessKeyboard(DOWN, fDeltaTime, bDebug, false);
     }
 
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)

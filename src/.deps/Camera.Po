@@ -331,7 +331,16 @@ src/Camera.o: src/Camera.cpp /usr/include/stdc-predef.h src/Camera.h \
  /usr/include/c++/11.2.0/cstring /usr/include/string.h \
  /usr/include/strings.h include/glm/glm/gtc/type_ptr.inl \
  include/glm/glm/gtc/matrix_transform.hpp \
- include/glm/glm/gtc/matrix_transform.inl /usr/include/c++/11.2.0/vector \
+ include/glm/glm/gtc/matrix_transform.inl \
+ include/glm/glm/gtx/string_cast.hpp \
+ include/glm/glm/gtx/../gtc/type_precision.hpp \
+ include/glm/glm/gtx/../gtc/../gtc/vec1.hpp \
+ include/glm/glm/gtx/../gtc/../gtc/vec1.inl \
+ include/glm/glm/gtx/../gtc/type_precision.inl \
+ include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
+ include/glm/glm/gtx/../gtx/dual_quaternion.inl \
+ include/glm/glm/gtx/string_cast.inl /usr/include/c++/11.2.0/cstdarg \
+ /usr/include/c++/11.2.0/vector \
  /usr/include/c++/11.2.0/bits/stl_uninitialized.h \
  /usr/include/c++/11.2.0/bits/stl_vector.h \
  /usr/include/c++/11.2.0/bits/stl_bvector.h \
@@ -812,6 +821,15 @@ include/glm/glm/gtc/../gtc/quaternion_simd.inl:
 include/glm/glm/gtc/type_ptr.inl:
 include/glm/glm/gtc/matrix_transform.hpp:
 include/glm/glm/gtc/matrix_transform.inl:
+include/glm/glm/gtx/string_cast.hpp:
+include/glm/glm/gtx/../gtc/type_precision.hpp:
+include/glm/glm/gtx/../gtc/../gtc/vec1.hpp:
+include/glm/glm/gtx/../gtc/../gtc/vec1.inl:
+include/glm/glm/gtx/../gtc/type_precision.inl:
+include/glm/glm/gtx/../gtx/dual_quaternion.hpp:
+include/glm/glm/gtx/../gtx/dual_quaternion.inl:
+include/glm/glm/gtx/string_cast.inl:
+/usr/include/c++/11.2.0/cstdarg:
 /usr/include/c++/11.2.0/vector:
 /usr/include/c++/11.2.0/bits/stl_uninitialized.h:
 /usr/include/c++/11.2.0/bits/stl_vector.h:
