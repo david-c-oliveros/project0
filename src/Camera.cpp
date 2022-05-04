@@ -6,13 +6,14 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(true)
 {
     cCollider = BoxCollider(position, glm::vec3(1.0f, 2.0f, 1.0f));
-    Position = position;
-    Velocity = glm::vec3(0.0f);
+    vPos = position;
+    vNextPos = vPos;
+    vVel = glm::vec3(0.0f);
     Floor = position.y;
     WorldUp = up;
     Yaw = yaw;
     Pitch = pitch;
-    //pCollider = std::make_unique<BoxCollider>(Position, glm::vec3(1.0f));
+    //pCollider = std::make_unique<BoxCollider>(vPos, glm::vec3(1.0f));
     updateCameraVectors();
 }
 
@@ -22,8 +23,9 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM), bSprint(false), bConstrainToFloor(true),
       cCollider(BoxCollider(glm::vec3(posX, posY, posZ), glm::vec3(1.0f)))
 {
-    Position = glm::vec3(posX, posY, posZ);
-    Velocity = glm::vec3(0.0f);
+    vPos = glm::vec3(posX, posY, posZ);
+    vNextPos = vPos;
+    vVel = glm::vec3(0.0f);
     Floor = posY;
     WorldUp = glm::vec3(upX, upY, upZ);
     Yaw = yaw;
@@ -34,7 +36,7 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
 
 glm::mat4 Camera::GetViewMatrix()
 {
-    return glm::lookAt(Position, Position + Front, Up);
+    return glm::lookAt(vPos, vPos + Front, Up);
 }
 
 
@@ -45,21 +47,21 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bD
         totalSpeed *= 4;
 
     if (direction == FORWARD)
-        UpdatePosVel(Front * totalSpeed);
+        UpdateNextPos(Front * totalSpeed);
     if (direction == BACKWARD)
-        UpdatePosVel(-(Front * totalSpeed));
+        UpdateNextPos(-(Front * totalSpeed));
     if (direction == LEFT)
-        UpdatePosVel(-(Right * totalSpeed));
+        UpdateNextPos(-(Right * totalSpeed));
     if (direction == RIGHT)
-        UpdatePosVel(Right * totalSpeed);
+        UpdateNextPos(Right * totalSpeed);
 
     if (direction == UP)
-        UpdatePosVel(WorldUp * totalSpeed);
+        UpdateNextPos(WorldUp * totalSpeed);
     if (direction == DOWN)
-        UpdatePosVel(-(WorldUp * totalSpeed));
+        UpdateNextPos(-(WorldUp * totalSpeed));
 
     if (bConstrainToFloor && !bDebug)
-        Position.y = Floor;
+        vPos.y = Floor;
 }
 
 
@@ -107,17 +109,37 @@ void Camera::updateCameraVectors()
 }
 
 
-void Camera::UpdatePosVel(glm::vec3 velocityVec)
+void Camera::SetPosVel(glm::vec3 velocityVec)
 {
-    //std::cout << "POSITION: " << glm::to_string(Position) << std::endl;
-    std::cout << "VELOCITY: " << glm::to_string(Velocity) << std::endl;
-    Velocity = velocityVec;
-    Position += Velocity;
-    cCollider.UpdatePos(Position);
+    vVel = velocityVec;
+    vPos += vVel;
+    cCollider.UpdatePos(glm::vec3(vPos.x, vPos.y / 2, vPos.z));
 }
 
 
-void Camera::PrintPosition()
+void Camera::UpdatePos(glm::vec3 velocityVec)
 {
-    std::cout << "(" << Position.x << ", " << Position.y << ", " << Position.z << ")" << std::endl;
+    vPos += velocityVec;
+    cCollider.UpdatePos(glm::vec3(vPos.x, vPos.y / 2, vPos.z));
+}
+
+
+void Camera::UpdateNextPos(glm::vec3 velocityVec)
+{
+    vVel = velocityVec;
+    vNextPos += vVel;
+    cCollider.UpdatePos(glm::vec3(vNextPos.x, vNextPos.y / 2, vNextPos.z));
+}
+
+
+void Camera::MoveToNextPos()
+{
+    vPos = vNextPos;
+    cCollider.UpdatePos(glm::vec3(vNextPos.x, vNextPos.y / 2, vNextPos.z));
+}
+
+
+void Camera::PrintvPos()
+{
+    std::cout << "(" << vPos.x << ", " << vPos.y << ", " << vPos.z << ")" << std::endl;
 }

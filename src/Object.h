@@ -11,6 +11,8 @@ class Object
 
     public:
         glm::vec3 vPos;
+        glm::vec3 vNextPos;
+        glm::vec3 vVel;
         float fRotAngle;
 
     public:

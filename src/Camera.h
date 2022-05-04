@@ -35,8 +35,9 @@ const float ZOOM         = 45.0f;
 class Camera
 {
     public:
-        glm::vec3 Position;
-        glm::vec3 Velocity;
+        glm::vec3 vPos;
+        glm::vec3 vNextPos;
+        glm::vec3 vVel;
         glm::vec3 Front;
         glm::vec3 Up;
         glm::vec3 Right;
@@ -64,8 +65,11 @@ class Camera
         void ProcessMouseMovement(float xoffset, float yoffset, GLboolean bConstrainPitch = true);
         void ProcessMouseScroll(float yoffset);
 
-        void PrintPosition();
-        void UpdatePosVel(glm::vec3 newPos);
+        void PrintvPos();
+        void SetPosVel(glm::vec3 newPos);
+        void UpdatePos(glm::vec3 velocityVec);
+        void UpdateNextPos(glm::vec3 velocityVec);
+        void MoveToNextPos();
 
     private:
         void updateCameraVectors();

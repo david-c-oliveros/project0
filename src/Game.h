@@ -43,14 +43,17 @@ class Game
         std::vector<SpotLight> spotLights;
 
         //std::unique_ptr<BoxCollider> cCollider;
-        BoxCollider cCollider;
+        BoxCollider cCollider1;
+        BoxCollider cCollider2;
 
         std::unique_ptr<Model> cEnvMesh;
         std::unique_ptr<Model> cContainerMesh;
-        std::unique_ptr<Model> cCubeMesh;
+        std::unique_ptr<Model> cCubeMesh1;
+        std::unique_ptr<Model> cCubeMesh2;
         Object cScene;
         Object cContainer;
-        Object cCube;
+        Object cCube1;
+        Object cCube2;
 
         glm::vec3 vPlayerDelta;
 

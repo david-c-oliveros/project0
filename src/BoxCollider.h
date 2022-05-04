@@ -17,7 +17,7 @@ class BoxCollider
         glm::vec3 vMax;
 
     public:
-        BoxCollider(glm::vec3 origin = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 size = glm::vec3(0.0f, 0.0f, 0.0f));
+        BoxCollider(glm::vec3 origin = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 size = glm::vec3(2.0f, 2.0f, 2.0f));
         ~BoxCollider();
 
         void UpdatePos(glm::vec3 newPos);
