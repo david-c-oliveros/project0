@@ -414,11 +414,14 @@ void Game::processInput(GLFWwindow* window)
     if (AABBCollide(cCollider1, camera.cCollider))
     {
         glm::vec3 vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
-        camera.UpdatePos(vVelocityVec);
+        camera.vPos += vVelocityVec;
+        camera.vNextPos = camera.vPos;
+        camera.cCollider.UpdatePos(camera.vPos);
     }
     else
     {
-        camera.MoveToNextPos();
+        camera.vPos = camera.vNextPos;
+        camera.cCollider.UpdatePos(camera.vPos);
     }
 
     if (AABBCollide(cCollider1, cCollider2))
