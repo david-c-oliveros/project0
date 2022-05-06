@@ -92,9 +92,9 @@ bool Text::initialize()
     }
 
     FT_Face face;
-    if (FT_New_Face(ft, "fonts/FreeMono.otf", 0, &face))
+    if (FT_New_Face(ft, "fonts/SourceCodePro-Regular.otf", 0, &face))
     {
-        std::cout << "ERROR::FREETYPE: FAiled to load font" << std::endl;
+        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
         return false;
     }
 

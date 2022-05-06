@@ -61,7 +61,7 @@ class Camera
         Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
 
         glm::mat4 GetViewMatrix();
-        void ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bDebug, bool bCollide);
+        void ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bDebug);
         void ProcessMouseMovement(float xoffset, float yoffset, GLboolean bConstrainPitch = true);
         void ProcessMouseScroll(float yoffset);
 

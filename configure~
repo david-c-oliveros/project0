@@ -647,8 +647,6 @@ CPPFLAGS
 LDFLAGS
 CXXFLAGS
 CXX
-DEBUG_FALSE
-DEBUG_TRUE
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
@@ -727,7 +725,6 @@ ac_user_opts='
 enable_option_checking
 enable_silent_rules
 enable_maintainer_mode
-enable_debug
 enable_dependency_tracking
 '
       ac_precious_vars='build_alias
@@ -1374,7 +1371,6 @@ Optional Features:
   --disable-maintainer-mode
                           disable make rules and dependencies not useful (and
                           sometimes confusing) to the casual installer
-  --enable-debug          enable debugging, default: no
   --enable-dependency-tracking
                           do not reject slow dependency extractors
   --disable-dependency-tracking
@@ -3184,27 +3180,6 @@ fi
 
   MAINT=$MAINTAINER_MODE_TRUE
 
-
-# Check whether --enable-debug was given.
-if test ${enable_debug+y}
-then :
-  enableval=$enable_debug; case "${enableval}" in
-             yes) debug=true ;;
-             no)  debug=false ;;
-             *)   as_fn_error $? "bad value ${enableval} for --enable-debug" "$LINENO" 5 ;;
-esac
-else $as_nop
-  debug=false
-fi
-
-
- if test x"$debug" = x"true"; then
-  DEBUG_TRUE=
-  DEBUG_FALSE='#'
-else
-  DEBUG_TRUE='#'
-  DEBUG_FALSE=
-fi
 
 
 
@@ -5314,10 +5289,6 @@ fi
 
 if test -z "${MAINTAINER_MODE_TRUE}" && test -z "${MAINTAINER_MODE_FALSE}"; then
   as_fn_error $? "conditional \"MAINTAINER_MODE\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${DEBUG_TRUE}" && test -z "${DEBUG_FALSE}"; then
-  as_fn_error $? "conditional \"DEBUG\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${AMDEP_TRUE}" && test -z "${AMDEP_FALSE}"; then

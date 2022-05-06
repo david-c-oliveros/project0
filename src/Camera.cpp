@@ -40,7 +40,7 @@ glm::mat4 Camera::GetViewMatrix()
 }
 
 
-void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bDebug, bool bCollide)
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bDebug)
 {
     float totalSpeed = bSprint ? SprintSpeed * deltaTime : MovementSpeed * deltaTime;
     if (bDebug)
@@ -61,7 +61,7 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool bD
         UpdateNextPos(-(WorldUp * totalSpeed));
 
     if (bConstrainToFloor && !bDebug)
-        vPos.y = Floor;
+        vNextPos.y = Floor;
 }
 
 
