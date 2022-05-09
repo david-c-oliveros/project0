@@ -69,7 +69,6 @@ class Camera
         void SetPosVel(glm::vec3 newPos);
         void UpdatePos(glm::vec3 velocityVec);
         void UpdateNextPos(glm::vec3 velocityVec);
-        void MoveToNextPos();
 
     private:
         void updateCameraVectors();

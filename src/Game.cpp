@@ -23,6 +23,7 @@ glm::vec3 vTorchColor = glm::vec3(fTorchLevel);
 bool bShowLights = true;
 bool bFlashlight = false;
 bool bDebug = false;
+bool bCollision = false;
 
 
 Game::Game()
@@ -182,6 +183,7 @@ void Game::Start()
 
     while (!glfwWindowShouldClose(window))
     {
+        bCollision = true;
         fDeltaTime = fCurrentFrame - fLastFrame;
         fLastFrame = fCurrentFrame;
 
@@ -269,6 +271,8 @@ void Game::Update(float fDeltaTime)
     //pText->RenderText(textShader, "Cube Collider: " + glm::to_string(cCollider2.vOrigin), 25.0f, 20.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
     //pText->RenderText(textShader, "Col: " + glm::to_string(camera.cCollider.vOrigin), 25.0f, 110.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
     //pText->RenderText(textShader, "Del: " + glm::to_string(vPlayerDelta), 25.0f, 80.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
+    if (bCollision)
+        pText->RenderText(textShader, "Collision!", 25.0f, 80.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
     pText->RenderText(textShader, "Pos: " + glm::to_string(camera.vPos), 25.0f, 50.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
     //pText->RenderText(textShader, "Vel: " + glm::to_string(camera.Velocity), 25.0f, 20.0f, 0.7f, glm::vec3(0.5f, 0.8f, 0.2f));
 
@@ -287,57 +291,45 @@ bool Game::AABBCollide(BoxCollider a, BoxCollider b)
 
 glm::vec3 Game::CalcAABBDistanceTo(BoxCollider a, BoxCollider b)
 {
-    glm::vec3 delta = glm::vec3(0.0f);
+    glm::vec3 vDelta = glm::vec3(0.0f);
 
     /************************/
     /*        X Axis        */
     /************************/
-    if (a.vOrigin.x < b.vOrigin.x)
+    if (a.vMin.x < b.vMin.x)
     {
-        delta.x = b.vOrigin.x - (a.vOrigin.x + a.vDim.x);
+        vDelta.x = b.vMin.x - a.vMax.x;
     }
-    else if (a.vOrigin.x > b.vOrigin.x)
+    else if (a.vMin.x > b.vMin.x)
     {
-        delta.x = a.vOrigin.x - (b.vOrigin.x + b.vDim.x);
-    }
-    else
-    {
-        delta.x = 0;
+        vDelta.x = a.vMin.x - b.vMax.x;
     }
 
     /************************/
     /*        Y Axis        */
     /************************/
-    if (a.vOrigin.y < b.vOrigin.y)
-    {
-        delta.y = b.vOrigin.y - (a.vOrigin.y + a.vDim.y);
-    }
-    else if (a.vOrigin.y > b.vOrigin.y)
-    {
-        delta.y = a.vOrigin.y - (b.vOrigin.y + b.vDim.y);
-    }
-    else
-    {
-        delta.y = 0;
-    }
+    //if (a.vOrigin.y < b.vOrigin.y)
+    //{
+    //    vDelta.y = b.vOrigin.y - (a.vOrigin.y + a.vDim.y);
+    //}
+    //else if (a.vOrigin.y > b.vOrigin.y)
+    //{
+    //    vDelta.y = a.vOrigin.y - (b.vOrigin.y + b.vDim.y);
+    //}
 
     /************************/
     /*        Z Axis        */
     /************************/
-    if (a.vOrigin.z < b.vOrigin.z)
+    if (a.vMin.z < b.vMin.z)
     {
-        delta.z = b.vOrigin.z - (a.vOrigin.z + a.vDim.z);
+        vDelta.z = b.vMin.z - a.vMax.z;
     }
-    else if (a.vOrigin.z > b.vOrigin.z)
+    else if (a.vMin.z > b.vMin.z)
     {
-        delta.z = a.vOrigin.z - (b.vOrigin.z + b.vDim.z);
-    }
-    else
-    {
-        delta.z = 0;
+        vDelta.z = a.vMin.z - b.vMax.z;
     }
 
-    return delta;
+    return vDelta;
 }
 
 
@@ -345,7 +337,7 @@ glm::vec3 Game::ResolveCollisions(BoxCollider a, glm::vec3 aVel, BoxCollider b)
 {
     glm::vec3 vDistance = CalcAABBDistanceTo(a, b);
     glm::vec3 vMoveDelta = glm::vec3(0.0f);
-    glm::vec3 vTimeToCollide;
+    glm::vec3 vTimeToCollide = glm::vec3(0.0f);
     vTimeToCollide.x = aVel.x != 0.0f ? abs(vDistance.x / aVel.x) : 0.0f;
     vTimeToCollide.z = aVel.z != 0.0f ? abs(vDistance.z / aVel.z) : 0.0f;
 
@@ -360,14 +352,13 @@ glm::vec3 Game::ResolveCollisions(BoxCollider a, glm::vec3 aVel, BoxCollider b)
         fShortestTime = vTimeToCollide.z;
         vMoveDelta.z = fShortestTime * aVel.z;
     }
-    //else if (aVel.x != 0.0f && aVel.z != 0.0f)
-    //{
-    //    fShortestTime = std::min(abs(vTimeToCollide.x), abs(vTimeToCollide.z));
-    //    vMoveDelta.x = fShortestTime * aVel.x;
-    //    vMoveDelta.z = fShortestTime * aVel.z;
-    //}
+    else
+    {
+        fShortestTime = std::min(abs(vTimeToCollide.x), abs(vTimeToCollide.z));
+        vMoveDelta.x = fShortestTime * aVel.x;
+        vMoveDelta.z = fShortestTime * aVel.z;
+    }
 
-    //return glm::vec3(std::clamp(vMoveDelta.x, -0.1f, 0.1f), vMoveDelta.y, std::clamp(vMoveDelta.z, -0.1f, 0.1f));
     return vMoveDelta;
 }
 
@@ -416,17 +407,18 @@ void Game::processInput(GLFWwindow* window)
     /************************************/
     if (AABBCollide(cCollider1, camera.cCollider))
     {
+        bCollision = true;
         glm::vec3 vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
-        std::cout << "camera velocity: " << glm::to_string(camera.vVel) << std::endl;
-        std::cout << "vMoveDelta: " << glm::to_string(vVelocityVec) << std::endl;
+        //std::cout << "camera velocity: " << glm::to_string(camera.vVel) << std::endl;
+        //std::cout << "vMoveDelta: " << glm::to_string(vVelocityVec) << std::endl;
         camera.vPos += vVelocityVec;
         camera.vNextPos = camera.vPos;
         camera.cCollider.UpdatePos(camera.vPos);
 
-        vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
-        camera.vPos += vVelocityVec;
-        camera.vNextPos = camera.vPos;
-        camera.cCollider.UpdatePos(camera.vPos);
+        //vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
+        //camera.vPos += vVelocityVec;
+        //camera.vNextPos = camera.vPos;
+        //camera.cCollider.UpdatePos(camera.vPos);
     }
     else
     {

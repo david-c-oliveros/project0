@@ -132,13 +132,6 @@ void Camera::UpdateNextPos(glm::vec3 velocityVec)
 }
 
 
-void Camera::MoveToNextPos()
-{
-    vPos = vNextPos;
-    cCollider.UpdatePos(glm::vec3(vNextPos.x, vNextPos.y / 2, vNextPos.z));
-}
-
-
 void Camera::PrintvPos()
 {
     std::cout << "(" << vPos.x << ", " << vPos.y << ", " << vPos.z << ")" << std::endl;
