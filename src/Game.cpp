@@ -183,7 +183,7 @@ void Game::Start()
 
     while (!glfwWindowShouldClose(window))
     {
-        bCollision = true;
+        bCollision = false;
         fDeltaTime = fCurrentFrame - fLastFrame;
         fLastFrame = fCurrentFrame;
 
@@ -252,7 +252,7 @@ void Game::Update(float fDeltaTime)
     //colliders[0].pCube->Draw(shader);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     cCube1.Draw(shader);
-    //cCube2.Draw(shader);
+    cCube2.Draw(shader);
 
     if (bShowLights)
     {
@@ -283,9 +283,13 @@ void Game::Update(float fDeltaTime)
 
 bool Game::AABBCollide(BoxCollider a, BoxCollider b)
 {
-    return (a.vMin.x <= b.vMax.x && a.vMax.x >= b.vMin.x) &&
-           (a.vMin.y <= b.vMax.y && a.vMax.y >= b.vMin.y) &&
-           (a.vMin.z <= b.vMax.z && a.vMax.z >= b.vMin.z);
+    std::cout << "a min: " << glm::to_string(a.vMin) << std::endl;
+    std::cout << "a max: " << glm::to_string(a.vMax) << std::endl;
+    std::cout << "b min: " << glm::to_string(b.vMin) << std::endl;
+    std::cout << "b max: " << glm::to_string(b.vMax) << std::endl;
+    return (a.vMin.x < b.vMax.x && a.vMax.x > b.vMin.x) &&
+           (a.vMin.y < b.vMax.y && a.vMax.y > b.vMin.y) &&
+           (a.vMin.z < b.vMax.z && a.vMax.z > b.vMin.z);
 }
 
 
@@ -409,16 +413,11 @@ void Game::processInput(GLFWwindow* window)
     {
         bCollision = true;
         glm::vec3 vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
-        //std::cout << "camera velocity: " << glm::to_string(camera.vVel) << std::endl;
-        //std::cout << "vMoveDelta: " << glm::to_string(vVelocityVec) << std::endl;
         camera.vPos += vVelocityVec;
         camera.vNextPos = camera.vPos;
         camera.cCollider.UpdatePos(camera.vPos);
-
-        //vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
-        //camera.vPos += vVelocityVec;
-        //camera.vNextPos = camera.vPos;
-        //camera.cCollider.UpdatePos(camera.vPos);
+        camera.vPos = camera.vNextPos;
+        camera.cCollider.UpdatePos(camera.vPos);
     }
     else
     {
@@ -428,9 +427,6 @@ void Game::processInput(GLFWwindow* window)
 
     //if (AABBCollide(cCollider1, cCollider2))
     //{
-    //    std::cout << "Collision" << std::endl;
-    //    std::cout << "cCollider 2: " << glm::to_string(cCollider2.vOrigin) << std::endl;
-    //    std::cout << "cCube2 Position: " << glm::to_string(cCube2.vPos) << std::endl;
     //    glm::vec3 vVelocityVec = ResolveCollisions(cCollider2, cCube2.vVel, cCollider1);
     //    cCube2.vPos += vVelocityVec;
     //    cCube2.vNextPos = cCube2.vPos;
@@ -441,10 +437,6 @@ void Game::processInput(GLFWwindow* window)
     //    cCube2.vPos = cCube2.vNextPos;
     //    cCollider2.UpdatePos(cCube2.vPos);
     //}
-
-    //vPlayerDelta = ResolveCollisions(camera.cCollider, camera.Velocity, cCollider1);
-    //camera.UpdatePosVel(vPlayerDelta);
-
 
     if (bDebug)
     {
@@ -460,6 +452,64 @@ void Game::processInput(GLFWwindow* window)
         camera.bSprint = false;
 }
 
+
+bool AABBAndAABB(BoxCollider b1, BoxCollider b2)
+{
+    std::vector<glm::vec2> axesToTest = {
+        glm::vec2(0.0f, 1.0f),
+        glm::vec2(1.0f, 0.0f)
+    };
+
+    for (int i = 0; i < axesToTest.size(); i++)
+    {
+        if (!OverlapOnAxis(b1, b2, axesToTest[i]))
+        {
+            return false;
+        }
+        return true;
+    }
+    return true;
+}
+
+
+bool OverlapOnAxis(BoxCollider b1, BoxCollider b2, glm::vec2 axis)
+{
+    glm::vec2 interval1 = GetInterval(b1, axis);
+    glm::vec2 interval2 = GetInterval(b2, axis);
+
+    return ((interval2.x <= interval1.y) && (interval1.x <= interval2.y));
+}
+
+
+glm::vec2 GetInterval(BoxCollider rect, glm::vec2 axis)
+{
+    glm::vec2 result = glm::vec2(0.0f);
+
+    glm::vec2 min = glm::vec2(rect.vMin.x, rect.vMin.z);
+    glm::vec2 max = glm::vec2(rect.vMax.x, rect.vMax.z);
+
+    glm::vec2 vertices[] = {
+        glm::vec2(min.x, min.y), glm::vec2(min.x, max.y),
+        glm::vec2(max.x, min.y), glm::vec2(max.x, max.y)
+    };
+
+    result.x = glm::dot(axis, vertices[0]);
+    result.y = result.x;
+    for (int i = 0; i < 4; i++)
+    {
+        float projection = glm::dot(axis, vertices[i]);
+        if (projection < result.x)
+        {
+            result.x = projection;
+        }
+        if (projection > result.y)
+        {
+            result.y = projection;
+        }
+    }
+
+    return result;
+}
 
 
 

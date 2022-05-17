@@ -30,6 +30,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
+bool AABBAndAABB(BoxCollider b1, BoxCollider b2);
+bool OverlapOnAxis(BoxCollider b1, BoxCollider b2, glm::vec2 axis);
+glm::vec2 GetInterval(BoxCollider rect, glm::vec2 axis);
+
 
 class Game
 {
