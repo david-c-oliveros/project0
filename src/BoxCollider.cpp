@@ -21,13 +21,8 @@ BoxCollider::~BoxCollider()
 void BoxCollider::UpdatePos(glm::vec3 newPos)
 {
     vOrigin = newPos;
-    vMin.x = vOrigin.x - vDim.x;
-    vMin.y = vOrigin.y - vDim.y;
-    vMin.z = vOrigin.z - vDim.z;
-
-    vMax.x = vOrigin.x + vDim.x;
-    vMax.y = vOrigin.y + vDim.y;
-    vMax.z = vOrigin.z + vDim.z;
+    vMin = vOrigin - vDim;
+    vMax = vOrigin + vDim;
 }
 
 

@@ -416,8 +416,6 @@ void Game::processInput(GLFWwindow* window)
         camera.vPos += vVelocityVec;
         camera.vNextPos = camera.vPos;
         camera.cCollider.UpdatePos(camera.vPos);
-        camera.vPos = camera.vNextPos;
-        camera.cCollider.UpdatePos(camera.vPos);
     }
     else
     {
