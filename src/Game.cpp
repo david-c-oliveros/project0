@@ -141,9 +141,9 @@ void Game::Create()
     //Light dirLight = Light(DIR_LIGHT, glm::vec3(-0.2f, -1.0f, -0.3f));
     glm::vec3 lightPos =  glm::vec3(-0.2f, -1.0f, -0.3f);
     shader.SetVec3("dirLight.direction", lightPos);
-    shader.SetVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-    shader.SetVec3("dirLight.diffuse", glm::vec3(0.1f, 0.1f, 0.1f));
-    shader.SetVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+    shader.SetVec3("dirLight.ambient", glm::vec3(0.0f, 1.0f, 0.0f));
+    shader.SetVec3("dirLight.diffuse", glm::vec3(0.0f, 0.1f, 0.0f));
+    shader.SetVec3("dirLight.specular", glm::vec3(0.0f, 1.0f, 0.0f));
 
     float fLightSepDist = 4.0f;
     glm::vec3 amb  = glm::vec3(0.0f);
@@ -322,6 +322,18 @@ glm::vec3 Game::CalcAABBDistanceTo(BoxCollider a, BoxCollider b)
     //}
 
     /************************/
+    /*        Y Axis        */
+    /************************/
+    if (a.vMin.y < b.vMin.y)
+    {
+        vDelta.y = b.vMin.y - a.vMax.y;
+    }
+    else if (a.vMin.y > b.vMin.y)
+    {
+        vDelta.y = a.vMin.y - b.vMax.y;
+    }
+
+    /************************/
     /*        Z Axis        */
     /************************/
     if (a.vMin.z < b.vMin.z)
@@ -404,6 +416,18 @@ void Game::processInput(GLFWwindow* window)
         cCollider2.UpdatePos(cCube2.vNextPos);
         cCube2.vVel = glm::vec3(0.1f, 0.0f, 0.0f);
     }
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+    {
+        cCube2.vNextPos += glm::vec3(0.0f, 0.0f, 0.1f);
+        cCollider2.UpdatePos(cCube2.vNextPos);
+        cCube2.vVel = glm::vec3(0.0f, 0.0f, 0.1f);
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+    {
+        cCube2.vNextPos += glm::vec3(0.0f, 0.0f, -0.1f);
+        cCollider2.UpdatePos(cCube2.vNextPos);
+        cCube2.vVel = glm::vec3(0.0f, 0.0f, -0.1f);
+    }
 
 
     /************************************/
@@ -413,7 +437,10 @@ void Game::processInput(GLFWwindow* window)
     {
         bCollision = true;
         glm::vec3 vVelocityVec = ResolveCollisions(camera.cCollider, camera.vVel, cCollider1);
-        camera.vPos += vVelocityVec;
+        shader.SetVec3("dirLight.ambient", glm::vec3(0.1f, 0.0f, 0.0f));
+        shader.SetVec3("dirLight.diffuse", glm::vec3(0.1f, 0.0f, 0.0f));
+        shader.SetVec3("dirLight.specular", glm::vec3(1.0f, 0.0f, 0.0f));
+        //camera.vPos += vVelocityVec;
         camera.vNextPos = camera.vPos;
         camera.cCollider.UpdatePos(camera.vPos);
     }
@@ -423,18 +450,18 @@ void Game::processInput(GLFWwindow* window)
         camera.cCollider.UpdatePos(camera.vPos);
     }
 
-    //if (AABBCollide(cCollider1, cCollider2))
-    //{
-    //    glm::vec3 vVelocityVec = ResolveCollisions(cCollider2, cCube2.vVel, cCollider1);
-    //    cCube2.vPos += vVelocityVec;
-    //    cCube2.vNextPos = cCube2.vPos;
-    //    cCollider2.UpdatePos(cCube2.vPos);
-    //}
-    //else
-    //{
-    //    cCube2.vPos = cCube2.vNextPos;
-    //    cCollider2.UpdatePos(cCube2.vPos);
-    //}
+    if (AABBCollide(cCollider1, cCollider2))
+    {
+        glm::vec3 vVelocityVec = ResolveCollisions(cCollider2, cCube2.vVel, cCollider1);
+        cCube2.vPos += vVelocityVec;
+        cCube2.vNextPos = cCube2.vPos;
+        cCollider2.UpdatePos(cCube2.vPos);
+    }
+    else
+    {
+        cCube2.vPos = cCube2.vNextPos;
+        cCollider2.UpdatePos(cCube2.vPos);
+    }
 
     if (bDebug)
     {
